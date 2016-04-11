@@ -1,0 +1,6 @@
+[package]
+name = "ecs_client"
+version = "0.1.0"
+authors = ["William Schiela <bschiela@gmail.com>"]
+
+[dependencies]
