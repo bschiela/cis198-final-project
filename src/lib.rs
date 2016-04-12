@@ -1,3 +1,4 @@
+#[macro_use(header)]
 extern crate hyper;
 
 pub mod ecs_client;
