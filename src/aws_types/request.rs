@@ -53,11 +53,13 @@ trait AWSRequest {
     fn set_x_amz_target_header(&mut self) {
         unimplemented!()
     }
-
+    
+    /// Sets the X-Amz-Date header
     fn set_x_amz_date_header(&mut self) {
         unimplemented!()
     }
 
+    /// Sets the Content-Type header
     fn set_content_type_header(&mut self) {
         let wrapped_req_builder = self.get_mut_request_builder().clone();
         let req_builder = wrapped_req_builder.borrow_mut();
@@ -72,6 +74,8 @@ trait AWSRequest {
         );
     }
 
+    /// Sets the Authorization header
+    /// note: may be replaced by a sign() or sign_and_send() function
     fn set_authorization_header(&mut self) {
         unimplemented!()
     }
