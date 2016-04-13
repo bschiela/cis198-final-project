@@ -2,4 +2,5 @@
 extern crate hyper;
 
 pub mod ecs_client;
-pub mod aws_types;
+pub mod region;
+pub mod request;
