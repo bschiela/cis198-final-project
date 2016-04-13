@@ -68,7 +68,6 @@
 <span id="25">25</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</span>
-<span class='doccomment'>//! TODO provide examples</span>
 
 <span class='kw'>use</span> <span class='ident'>region</span>::<span class='ident'>Region</span>;
 <span class='kw'>use</span> <span class='ident'>hyper</span>;
@@ -78,6 +77,7 @@
     <span class='ident'>client</span>: <span class='ident'>hyper</span>::<span class='ident'>Client</span>
 }
 
+<span class='comment'>// TODO provide code examples of how to use client</span>
 <span class='kw'>impl</span> <span class='ident'>ECSClient</span> {
     <span class='doccomment'>/// creates a new ECSClient for the specified Region</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>region</span>: <span class='ident'>Region</span>) <span class='op'>-&gt;</span> <span class='ident'>ECSClient</span> {
