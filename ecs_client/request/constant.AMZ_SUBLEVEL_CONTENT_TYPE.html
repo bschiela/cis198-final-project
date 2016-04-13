@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `ListClustersParams` struct in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, ListClustersParams">
+    <meta name="description" content="API documentation for the Rust `AMZ_SUBLEVEL_CONTENT_TYPE` constant in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, AMZ_SUBLEVEL_CONTENT_TYPE">
 
-    <title>ecs_client::params::ListClustersParams - Rust</title>
+    <title>ecs_client::request::AMZ_SUBLEVEL_CONTENT_TYPE - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -27,7 +27,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>params</a></p><script>window.sidebarCurrent = {name: 'ListClustersParams', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>request</a></p><script>window.sidebarCurrent = {name: 'AMZ_SUBLEVEL_CONTENT_TYPE', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -41,23 +41,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>params</a>::<wbr><a class='struct' href=''>ListClustersParams</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content constant">
+<h1 class='fqn'><span class='in-band'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>request</a>::<wbr><a class='constant' href=''>AMZ_SUBLEVEL_CONTENT_TYPE</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-78' class='srclink' href='../../src/ecs_client/params.rs.html#5-11' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct ListClustersParams {
-    max_results: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,
-    next_token: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
-}</pre><div class='docblock'><p>allowed parameters for a ListClusters request</p>
-</div><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                                  <td id='structfield.max_results'><code>max_results</code></td><td><div class='docblock'><p>must be between 1 and 100, inclusive; defaults to 100 if missing or invalid</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.next_token'><code>next_token</code></td><td><div class='docblock'><p>an optional token returned by a previous ListClusters request indicating where to start
-the next page of paginated output (if there are more results than max_results)</p>
-</div></td></tr></table></section>
+        </span><a id='src-48' class='srclink' href='../../src/ecs_client/request.rs.html#12' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>const AMZ_SUBLEVEL_CONTENT_TYPE: &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a><code> = </code><code>"x-amz-json-1.1"</code></pre><div class='docblock'><p>The MIME sublevel content type of an ECS HTTP request body</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

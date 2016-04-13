@@ -48,9 +48,26 @@
             </a>
         </span><a id='src-49' class='srclink' href='../../src/ecs_client/request.rs.html#14-17' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ECSRequest&lt;'a&gt; {
-    // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../ecs_client/request/struct.ECSRequest.html' title='ecs_client::request::ECSRequest'>ECSRequest</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(region: <a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>, req_builder: <a class='struct' href='https://hyperium.github.io/hyper/hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../../ecs_client/request/struct.ECSRequest.html' title='ecs_client::request::ECSRequest'>ECSRequest</a></code></h4>
+    region: <a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>,
+    req_builder: <a class='struct' href='https://hyperium.github.io/hyper/hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a>&lt;'a&gt;,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.region'><code>region</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.req_builder'><code>req_builder</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../ecs_client/request/struct.ECSRequest.html' title='ecs_client::request::ECSRequest'>ECSRequest</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(region: <a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>, req_builder: <a class='struct' href='https://hyperium.github.io/hyper/hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../../ecs_client/request/struct.ECSRequest.html' title='ecs_client::request::ECSRequest'>ECSRequest</a></code></h4>
 <div class='docblock'><p>Creates a new ECSRequest destined for the specified Region</p>
+</div><h4 id='method.set_host_header' class='method'><code>fn <a href='#method.set_host_header' class='fnname'>set_host_header</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Sets the Host header</p>
+</div><h4 id='method.set_accept_encoding_header' class='method'><code>fn <a href='#method.set_accept_encoding_header' class='fnname'>set_accept_encoding_header</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Sets the Accept-Encoding header</p>
+</div><h4 id='method.set_x_amz_target_header' class='method'><code>fn <a href='#method.set_x_amz_target_header' class='fnname'>set_x_amz_target_header</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Sets the X-Amz-Target header</p>
+</div><h4 id='method.set_x_amz_date_header' class='method'><code>fn <a href='#method.set_x_amz_date_header' class='fnname'>set_x_amz_date_header</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Sets the X-Amz-Date header</p>
+</div><h4 id='method.set_content_type_header' class='method'><code>fn <a href='#method.set_content_type_header' class='fnname'>set_content_type_header</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Sets the Content-Type header</p>
+</div><h4 id='method.set_authorization_header' class='method'><code>fn <a href='#method.set_authorization_header' class='fnname'>set_authorization_header</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Sets the Authorization header
+note: may be replaced by a sign() or sign_and_send() function</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
 
