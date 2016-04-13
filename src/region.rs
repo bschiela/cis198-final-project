@@ -1,4 +1,4 @@
-//! An enum defining the regions in which Amazon ECS is supported.
+//! An enum defining the regions in which Amazon ECS is supported
 
 use std::fmt::{Display, Formatter, Error};
 
