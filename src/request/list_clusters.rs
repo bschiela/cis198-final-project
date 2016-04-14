@@ -3,6 +3,7 @@
 
 use request::ecs_request::ECSRequest;
 
+#[allow(non_snake_case)]
 pub struct ListClustersRequest {
     /// The max number of cluster results returned in paginated output. 
     /// Must be between 1 and 100, inclusive.
