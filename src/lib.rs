@@ -1,7 +1,5 @@
-#[macro_use] extern crate hyper;
+extern crate serde;
+extern crate serde_json;
 
-pub mod ecs_client;
-pub mod request;
-pub mod region;
-pub mod action;
-pub mod custom_headers;
+// required to use serde on stable rust
+include!(concat!(env!("OUT_DIR"), "/lib.rs"));

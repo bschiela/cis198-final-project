@@ -2,6 +2,13 @@
 name = "ecs_client"
 version = "0.1.0"
 authors = ["William Schiela <bschiela@gmail.com>"]
+build = "build.rs"
+
+[build-dependencies]
+serde_codegen = "*"
+syntex = "*"
 
 [dependencies]
-hyper="0.8.0"
+hyper = "0.8.0"
+serde = "*"
+serde_json = "*"
