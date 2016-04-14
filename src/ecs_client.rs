@@ -3,6 +3,7 @@
 use region::Region;
 use action::ECSAction;
 use request::*;
+use custom_headers::{XAmzTarget, XAmzDate};
 
 use hyper;
 use hyper::client::RequestBuilder;
@@ -11,6 +12,8 @@ use hyper::mime::{Mime, TopLevel, SubLevel};
 
 /// The MIME sublevel content type of an ECS HTTP request body
 const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
+/// The ECS API version this request is meant for
+const ECS_API_VERSION: &'static str = "AmazonEC2ContainerServiceV20141113";
 
 pub struct ECSClient {
     region: Region,
@@ -18,7 +21,6 @@ pub struct ECSClient {
 }
 
 // TODO provide code examples of how to use client
-// TODO document all functions
 impl ECSClient {
     /// creates a new ECSClient for the specified Region
     pub fn new(region: Region) -> ECSClient {
@@ -44,8 +46,8 @@ impl ECSClient {
             port: None,
         });
         headers.set(AcceptEncoding(vec![]));
-        // TODO set X-Amz-Target header
-        // TODO set X-Amz-Date header
+        headers.set(XAmzTarget(self.compute_x_amz_target(action)));
+        headers.set(XAmzDate(self.compute_x_amz_date()));
         headers.set(ContentType(
                 Mime(
                     TopLevel::Application,
@@ -57,7 +59,6 @@ impl ECSClient {
         req_builder.headers(headers)
     }
 
-    // TODO make general over all types of requests
     fn set_body<T: ecs_request::ECSRequest>(&self, req_builder: RequestBuilder, body: T) -> RequestBuilder {
         unimplemented!()
         // TODO compute and set content-length header
@@ -75,5 +76,17 @@ impl ECSClient {
         hostname.push_str(&self.region.to_string());
         hostname.push_str(".amazonaws.com");
         hostname
+    }
+
+    fn compute_x_amz_target(&self, action: ECSAction) -> String {
+        let mut target = String::from(ECS_API_VERSION);
+        target.push_str(".");
+        target.push_str(&action.to_string());
+        target
+    }
+
+    fn compute_x_amz_date(&self) -> String {
+        unimplemented!()
+        // TODO might have to move this to sign
     }
 }
