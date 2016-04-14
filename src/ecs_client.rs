@@ -2,7 +2,7 @@
 
 use region::Region;
 use action::ECSAction;
-use params::ListClustersParams;
+use request;
 
 use hyper;
 use hyper::client::RequestBuilder;
@@ -33,7 +33,7 @@ impl ECSClient {
         self.region = region;
     }
 
-    pub fn list_clusters(&self) {
+    pub fn list_clusters(&self, request: request::list_clusters::ListClustersRequest) {
         unimplemented!()
     }
 
@@ -57,8 +57,8 @@ impl ECSClient {
         req_builder.headers(headers)
     }
 
-    // TODO make general over all types of body_params
-    fn set_body(&self, req_builder: RequestBuilder, body_params: ListClustersParams) -> RequestBuilder {
+    // TODO make general over all types of requests
+    fn set_body(&self, req_builder: RequestBuilder, body: request::list_clusters::ListClustersRequest) -> RequestBuilder {
         unimplemented!()
         // TODO compute and set content-length header
     }
