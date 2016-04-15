@@ -7,8 +7,10 @@ use custom_headers::{XAmzTarget, XAmzDate};
 
 use hyper;
 use hyper::client::RequestBuilder;
-use hyper::header::{Headers, Host, AcceptEncoding, ContentType};
+use hyper::header::{Headers, Host, AcceptEncoding, ContentType, ContentLength};
 use hyper::mime::{Mime, TopLevel, SubLevel};
+
+use serde_json;
 
 /// The MIME sublevel content type of an ECS HTTP request body
 const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
@@ -36,6 +38,10 @@ impl ECSClient {
     }
 
     pub fn list_clusters(&self, request: list_clusters::ListClustersRequest) {
+        let mut req_builder = self.client.post(&self.compute_hostname());
+        req_builder = self.set_headers(req_builder, ECSAction::ListClusters);
+        req_builder = self.set_body(req_builder, request);
+        // TODO sign and send, deserialize and return response
         unimplemented!()
     }
 
@@ -59,9 +65,12 @@ impl ECSClient {
         req_builder.headers(headers)
     }
 
-    fn set_body<T: ecs_request::ECSRequest>(&self, req_builder: RequestBuilder, body: T) -> RequestBuilder {
+    fn set_body<'a, T: ecs_request::ECSRequest>(&self, req_builder: RequestBuilder<'a>, body: T) -> RequestBuilder<'a> {
+        let body_json = serde_json::to_string(&body).unwrap();
+        let content_length = body_json.len();
+        // TODO body_json does not live long enough!!!!!
+        //req_builder.body(&body_json).header(ContentLength(content_length as u64))
         unimplemented!()
-        // TODO compute and set content-length header
     }
 
     fn sign(&self, req_builder: RequestBuilder) -> RequestBuilder {
