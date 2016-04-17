@@ -101,6 +101,5 @@ impl ECSClient {
 
     fn compute_x_amz_date(&self) -> String {
         unimplemented!()
-        // TODO might have to move this to sign
     }
 }
