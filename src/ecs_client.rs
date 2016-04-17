@@ -38,10 +38,25 @@ impl ECSClient {
     }
 
     pub fn list_clusters(&self, request: list_clusters::ListClustersRequest) {
+        let response = self.sign_and_send(ECSAction::ListClusters, request);
+        // TODO: deserialize and return response
+        unimplemented!()
+    }
+
+    fn sign_and_send<T: ecs_request::ECSRequest>(&self,
+                                                 action: ECSAction,
+                                                 request: T) -> i32 {
+        let body_json = serde_json::to_string(&request).unwrap();
+
         let mut req_builder = self.client.post(&self.compute_hostname());
-        req_builder = self.set_headers(req_builder, ECSAction::ListClusters);
-        req_builder = self.set_body(req_builder, request);
-        // TODO sign and send, deserialize and return response
+        req_builder = self.set_headers(req_builder, action);
+
+        // set the json-serialized request as the body of the HTTP request
+        req_builder = self.set_body(req_builder, &body_json);
+
+        // TODO get credentials from environment
+        // TODO compute AuthV4 Signature -> set as Authorization header
+        // TODO send and return response (change return value from i32)
         unimplemented!()
     }
 
@@ -65,19 +80,9 @@ impl ECSClient {
         req_builder.headers(headers)
     }
 
-    fn set_body<'a, T: ecs_request::ECSRequest>(&self, req_builder: RequestBuilder<'a>, body: T) -> RequestBuilder<'a> {
-        let body_json = serde_json::to_string(&body).unwrap();
-        let content_length = body_json.len();
-        // TODO body_json does not live long enough!!!!!
-        //req_builder.body(&body_json).header(ContentLength(content_length as u64))
-        unimplemented!()
-    }
-
-    fn sign(&self, req_builder: RequestBuilder) -> RequestBuilder {
-        unimplemented!()
-        // TODO get credentials from environment
-        // TODO compute AuthV4 Signature
-        // TODO set Authorization header
+    fn set_body<'a>(&self, req_builder: RequestBuilder<'a>, body: &'a str) -> RequestBuilder<'a> {
+        let content_length = body.len();
+        req_builder.body(body).header(ContentLength(content_length as u64))
     }
 
     fn compute_hostname(&self) -> String {
