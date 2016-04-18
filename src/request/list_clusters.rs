@@ -23,6 +23,7 @@ impl ECSRequest for ListClustersRequest {}
 mod test {
     use super::ListClustersRequest;
     use serde_json;
+    use serde_json::value;
 
     #[test]
     fn test_full_blob() {
@@ -30,9 +31,12 @@ mod test {
             maxResults: Some(50),
             nextToken: Some(String::from("token")),
         };
-        let ser = serde_json::to_string(&req).unwrap();
-        assert_eq!("{\"maxResults\":50,\"nextToken\":\"token\"}", &ser);
-        println!("{}", &ser);
+        let expected: value::Value = serde_json::from_str("{\"maxResults\":50,\"nextToken\":\"token\"}").unwrap();
+        let actual: value::Value = value::to_value(&req);
+        assert_eq!(expected, actual);
+
+        let json_string = serde_json::to_string(&req).unwrap();
+        println!("{}", &json_string);
     }
 
     #[test]
@@ -41,8 +45,11 @@ mod test {
             maxResults: None,
             nextToken: None,
         };
-        let ser = serde_json::to_string(&req).unwrap();
-        assert_eq!("{\"maxResults\":null,\"nextToken\":null}", &ser);
-        println!("{}", &ser);
+        let expected: value::Value = serde_json::from_str("{\"maxResults\":null,\"nextToken\":null}").unwrap();
+        let actual: value::Value = value::to_value(&req);
+        assert_eq!(expected, actual);
+
+        let json_string = serde_json::to_string(&req).unwrap();
+        println!("{}", &json_string);
     }
 }
