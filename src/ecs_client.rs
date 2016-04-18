@@ -12,10 +12,14 @@ use hyper::mime::{Mime, TopLevel, SubLevel};
 
 use serde_json;
 
+/// The service abbreviation string for Amazon ECS
+const SERVICE_ABBREVIATION: &'static str = "ecs";
 /// The MIME sublevel content type of an ECS HTTP request body
 const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
 /// The ECS API version this request is meant for
 const ECS_API_VERSION: &'static str = "AmazonEC2ContainerServiceV20141113";
+/// The default algorithm used for calculating the authentication signature
+const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
 
 pub struct ECSClient {
     region: Region,
@@ -86,7 +90,8 @@ impl ECSClient {
     }
 
     fn compute_hostname(&self) -> String {
-        let mut hostname = String::from("ecs.");
+        let mut hostname = String::from(SERVICE_ABBREVIATION);
+        hostname.push_str(".");
         hostname.push_str(&self.region.to_string());
         hostname.push_str(".amazonaws.com");
         hostname
