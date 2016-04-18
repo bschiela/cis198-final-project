@@ -40,6 +40,20 @@ mod test {
     }
 
     #[test]
+    fn test_value_order_irrelevant() {
+        let req = ListClustersRequest {
+            maxResults: Some(50),
+            nextToken: Some(String::from("token")),
+        };
+        let expected: value::Value = serde_json::from_str("{\"nextToken\":\"token\",\"maxResults\":50}").unwrap();
+        let actual: value::Value = value::to_value(&req);
+        assert_eq!(expected, actual);
+
+        let json_string = serde_json::to_string(&req).unwrap();
+        println!("{}", &json_string);
+    }
+
+    #[test]
     fn test_empty_blob() {
         let req = ListClustersRequest {
             maxResults: None,
