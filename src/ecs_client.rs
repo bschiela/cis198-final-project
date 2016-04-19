@@ -22,6 +22,8 @@ const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
 const ECS_API_VERSION: &'static str = "AmazonEC2ContainerServiceV20141113";
 /// The default algorithm used for calculating the authentication signature
 const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
+/// The list of signed headers, in canonical form
+const SIGNED_HEADERS: &'static str = "accept-encoding;content-length;content-type;host;x-amz-date;x-amz-target";
 
 pub struct ECSClient {
     region: Region,
@@ -106,7 +108,7 @@ impl ECSClient {
         target
     }
 
-    fn build_canonical_request(&self, headers: &Headers) -> String {
+    fn build_canonical_request(&self, headers: &Headers, body: &str) -> String {
         let mut canon_req = String::from("POST\n");
         canon_req.push_str("/\n"); // canonical URI (empty)
         canon_req.push_str("\n"); // canonical query string (empty)
@@ -142,6 +144,9 @@ impl ECSClient {
                 XAmzTarget::header_name(),
                 &(x_amz_target as &(HeaderFormat + Send + Sync)).to_string()
         ));
+        // signed headers
+        canon_req.push_str(self.SIGNED_HEADERS);
+        canon_req.push_str("\n");
         canon_req
     }
 
@@ -165,7 +170,7 @@ impl ECSClient {
 #[cfg(test)]
 mod test {
     use super::ECSClient;
-    use hyper::header::{Headers, HeaderFormat, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength, Location};
+    use hyper::header::{Headers, HeaderFormat, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
     use custom_headers::{XAmzTarget, XAmzDate};
     use time;
     use hyper::mime::{Mime, TopLevel, SubLevel};
@@ -188,7 +193,6 @@ mod test {
             )
         );
         headers.set(ContentLength(2));
-        headers.set(Location(String::from("test  removing   consecutive spaces   ")));
         headers
     }
 
