@@ -164,40 +164,35 @@ impl ECSClient {
 
 #[cfg(test)]
 mod test {
-    use hyper::header::{Headers, HeaderFormat, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
+    use super::ECSClient;
+    use hyper::header::{Headers, HeaderFormat, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength, Location};
     use custom_headers::{XAmzTarget, XAmzDate};
     use time;
     use hyper::mime::{Mime, TopLevel, SubLevel};
-
-    #[test]
-    fn test_view_headers() {
-        let mut headers: Headers = Headers::new();
+    
+    fn build_test_headers() -> Headers {
+        let mut headers = Headers::new();
         headers.set(Host {
-            hostname: String::from("ecstest.us-east-1.amazonaws.com"),
+            hostname: String::from("ecs.us-east-1.amazonaws.com"),
             port: None,
         });
         headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
-        headers.set(XAmzTarget(String::from("API_Version.ListClusters")));
+        headers.set(XAmzTarget(String::from("AmazonEC2ContainerServiceV20141113.ListClusters")));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
         headers.set(ContentType(
                 Mime(
                     TopLevel::Application,
-                    SubLevel::Ext(String::from("application/amz-json-1.1")),
+                    SubLevel::Ext(String::from("x-amz-json-1.1")),
                     vec![],
                 )
             )
         );
+        headers.set(ContentLength(2));
+        headers.set(Location(String::from("test  removing   consecutive spaces   ")));
+        headers
+    }
 
-        let host_val: &Host = headers.get().unwrap();
-        println!("{}", host_val.hostname);
-        let xamz_date: &XAmzDate = headers.get().unwrap();
-        let date_val = &xamz_date.0;
-        let acc_enc: &AcceptEncoding = headers.get().unwrap();
-        println!("{:?}", xamz_date);
-        println!("{}", date_val);
-        println!("\n");
-        println!("{}", headers);
-        println!("{}", host_val as &(HeaderFormat + Send + Sync));
-        println!("{}", acc_enc as &(HeaderFormat + Send + Sync));
+    #[test]
+    fn test_canonical_request_format() {
     }
 }
