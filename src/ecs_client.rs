@@ -105,8 +105,4 @@ impl ECSClient {
         target.push_str(&action.to_string());
         target
     }
-
-    fn compute_x_amz_date(&self) -> String {
-        unimplemented!()
-    }
 }
