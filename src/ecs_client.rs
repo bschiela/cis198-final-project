@@ -12,6 +12,8 @@ use hyper::mime::{Mime, TopLevel, SubLevel};
 
 use serde_json;
 
+use time;
+
 /// The service abbreviation string for Amazon ECS
 const SERVICE_ABBREVIATION: &'static str = "ecs";
 /// The MIME sublevel content type of an ECS HTTP request body
@@ -72,7 +74,7 @@ impl ECSClient {
         });
         headers.set(AcceptEncoding(vec![]));
         headers.set(XAmzTarget(self.compute_x_amz_target(action)));
-        headers.set(XAmzDate(self.compute_x_amz_date()));
+        headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
         headers.set(ContentType(
                 Mime(
                     TopLevel::Application,
