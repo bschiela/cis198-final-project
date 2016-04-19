@@ -7,7 +7,7 @@ use custom_headers::{XAmzTarget, XAmzDate};
 
 use hyper;
 use hyper::client::RequestBuilder;
-use hyper::header::{Headers, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
+use hyper::header::{Headers, Header, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
 use hyper::mime::{Mime, TopLevel, SubLevel};
 
 use serde_json;
@@ -110,7 +110,19 @@ impl ECSClient {
         let mut canon_req = String::from("POST\n");
         canon_req.push_str("/\n"); // canonical URI (empty)
         canon_req.push_str("\n"); // canonical query string (empty)
-        // canonical headers
+        // CANONICAL HEADERS
+        // accept encoding
+        let mut ae_string = AcceptEncoding::header_name().to_lowercase();
+        ae_string.push_str(":");
+        let &AcceptEncoding(ref qitem_vec) = headers.get().unwrap();
+        for qitem in qitem_vec {
+            ae_string.push_str(&qitem.to_string());
+        }
+        canon_req.push_str(&ae_string);
+        canon_req.push_str("\n");
+        // content-length
+        let mut cl_string = ContentLength::header_name().to_lowercase();
+        cl_string.push_str(":");
         let host: &Host = headers.get().unwrap();
         //canon_req.push_str((*host).to_string());
         unimplemented!()
