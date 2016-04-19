@@ -105,4 +105,50 @@ impl ECSClient {
         target.push_str(&action.to_string());
         target
     }
+
+    fn build_canonical_request(headers: &Headers) -> String {
+        let mut canon_req = String::from("POST\n");
+        canon_req.push_str("/\n"); // canonical URI (empty)
+        canon_req.push_str("\n"); // canonical query string (empty)
+        // canonical headers
+        unimplemented!()
+
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use hyper::header::{Headers, Host, AcceptEncoding, ContentType, ContentLength};
+    use custom_headers::{XAmzTarget, XAmzDate};
+    use time;
+    use hyper::mime::{Mime, TopLevel, SubLevel};
+
+    #[test]
+    fn test_view_headers() {
+        let mut headers: Headers = Headers::new();
+        headers.set(Host {
+            hostname: String::from("ecstest.us-east-1.amazonaws.com"),
+            port: None,
+        });
+        headers.set(AcceptEncoding(vec![]));
+        headers.set(XAmzTarget(String::from("API_Version.ListClusters")));
+        headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
+        headers.set(ContentType(
+                Mime(
+                    TopLevel::Application,
+                    SubLevel::Ext(String::from("application/amz-json-1.1")),
+                    vec![],
+                )
+            )
+        );
+
+        let host_val: &Host = headers.get().unwrap();
+        println!("{}", host_val.hostname);
+        let xamz_date: &XAmzDate = headers.get().unwrap();
+        let date_val = &xamz_date.0;
+        println!("{:?}", xamz_date);
+        println!("{}", date_val);
+        println!();
+        println!("{}", headers)
+    }
 }
