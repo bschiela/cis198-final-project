@@ -7,7 +7,7 @@ use custom_headers::{XAmzTarget, XAmzDate};
 
 use hyper;
 use hyper::client::RequestBuilder;
-use hyper::header::{Headers, Host, AcceptEncoding, ContentType, ContentLength};
+use hyper::header::{Headers, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
 use hyper::mime::{Mime, TopLevel, SubLevel};
 
 use serde_json;
@@ -72,7 +72,7 @@ impl ECSClient {
             hostname: self.compute_hostname(),
             port: None,
         });
-        headers.set(AcceptEncoding(vec![]));
+        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
         headers.set(XAmzTarget(self.compute_x_amz_target(action)));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
         headers.set(ContentType(
@@ -111,14 +111,15 @@ impl ECSClient {
         canon_req.push_str("/\n"); // canonical URI (empty)
         canon_req.push_str("\n"); // canonical query string (empty)
         // canonical headers
+        let host: &Host = headers.get().unwrap();
+        //canon_req.push_str((*host).to_string());
         unimplemented!()
-
     }
 }
 
 #[cfg(test)]
 mod test {
-    use hyper::header::{Headers, Host, AcceptEncoding, ContentType, ContentLength};
+    use hyper::header::{Headers, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
     use custom_headers::{XAmzTarget, XAmzDate};
     use time;
     use hyper::mime::{Mime, TopLevel, SubLevel};
@@ -130,7 +131,7 @@ mod test {
             hostname: String::from("ecstest.us-east-1.amazonaws.com"),
             port: None,
         });
-        headers.set(AcceptEncoding(vec![]));
+        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
         headers.set(XAmzTarget(String::from("API_Version.ListClusters")));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
         headers.set(ContentType(
@@ -148,7 +149,7 @@ mod test {
         let date_val = &xamz_date.0;
         println!("{:?}", xamz_date);
         println!("{}", date_val);
-        println!();
+        println!("\n");
         println!("{}", headers)
     }
 }
