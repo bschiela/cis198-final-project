@@ -16,7 +16,7 @@ pub struct ListClustersRequest {
     nextToken: Option<String>,
 }
 
-/// For writing generic functions over ECSRequests
+/// Used so that a ListClustersRequest can be passed as a generic ECSRequest.
 impl ECSRequest for ListClustersRequest {}
 
 #[cfg(test)]

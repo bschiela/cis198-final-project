@@ -1,4 +1,4 @@
-//! An enum defining the regions in which Amazon ECS is supported
+//! An enum defining the regions in which Amazon ECS is supported.
 
 use std::fmt::{Display, Formatter, Error};
 
@@ -14,7 +14,7 @@ pub enum Region {
     APSoutheast2,
 }
 
-/// Used primarily to map Region variants to their string representation
+/// Used primarily to map Region variants to their String representation.
 impl Display for Region {
     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
         let region_str = match self {

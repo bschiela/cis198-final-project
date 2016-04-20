@@ -14,13 +14,13 @@ use serde_json;
 
 use time;
 
-/// The service abbreviation string for Amazon ECS
+/// The service abbreviation string for Amazon ECS.
 const SERVICE_ABBREVIATION: &'static str = "ecs";
-/// The MIME sublevel content type of an ECS HTTP request body
+/// The MIME sublevel content type of an ECS HTTP request body.
 const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
-/// The ECS API version this request is meant for
+/// The ECS API version this request is meant for.
 const ECS_API_VERSION: &'static str = "AmazonEC2ContainerServiceV20141113";
-/// The default algorithm used for calculating the authentication signature
+/// The default algorithm used for calculating the authentication signature.
 const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
 
 pub struct ECSClient {
@@ -30,7 +30,7 @@ pub struct ECSClient {
 
 // TODO provide code examples of how to use client
 impl ECSClient {
-    /// creates a new ECSClient for the specified Region
+    /// Creates a new ECSClient for the specified Region.
     pub fn new(region: Region) -> ECSClient {
         ECSClient {
             region: region,
@@ -38,17 +38,21 @@ impl ECSClient {
         }
     }
 
-    /// sets the Region to which the client sends requests
+    /// Sets the Region to which the client sends requests.
     pub fn set_region(&mut self, region: Region) {
         self.region = region;
     }
 
+    /// Lists all of your compute clusters on ECS.
     pub fn list_clusters(&self, request: list_clusters::ListClustersRequest) {
         let response = self.sign_and_send(ECSAction::ListClusters, request);
         // TODO: deserialize and return response
         unimplemented!()
     }
 
+    /// Signs the request using Amazon's Signature Version 4 Signing Algorithm.
+    /// Serializes the service request to json format and sets it as the payload in the HTTP body.
+    /// Sends the request to ECS and returns the response.
     fn sign_and_send<T: ecs_request::ECSRequest>(&self,
                                                  action: ECSAction,
                                                  request: T) -> i32 {
@@ -66,6 +70,7 @@ impl ECSClient {
         unimplemented!()
     }
 
+    /// Sets the Host, Accept-Encoding, X-Amz-Target, X-Amz-Date, and Content-Type HTTP headers.
     fn set_headers<'a>(&self, req_builder: RequestBuilder<'a>, action: ECSAction) -> RequestBuilder<'a> {
         let mut headers: Headers = Headers::new();
         headers.set(Host {
@@ -86,11 +91,13 @@ impl ECSClient {
         req_builder.headers(headers)
     }
 
+    /// Sets the body of the HTTP request.
     fn set_body<'a>(&self, req_builder: RequestBuilder<'a>, body: &'a str) -> RequestBuilder<'a> {
         let content_length = body.len();
         req_builder.body(body).header(ContentLength(content_length as u64))
     }
 
+    /// Builds and returns the hostname String used in the Host header.
     fn compute_hostname(&self) -> String {
         let mut hostname = String::from(SERVICE_ABBREVIATION);
         hostname.push_str(".");
@@ -99,6 +106,7 @@ impl ECSClient {
         hostname
     }
 
+    /// Builds and returns the target String used in the X-Amz-Target header.
     fn compute_x_amz_target(&self, action: ECSAction) -> String {
         let mut target = String::from(ECS_API_VERSION);
         target.push_str(".");
@@ -106,6 +114,13 @@ impl ECSClient {
         target
     }
 
+    /// Builds and returns the canonical request String according to the guidelines at
+    /// http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html .
+    /// The canonical request contains the HTTP headers with lowercase names followed by their
+    /// value, with consecutive spaces converted to single spaces.  The headers must appear in
+    /// order sorted by character code in lowercase, followed by a list of headers included in the
+    /// signed request, followed by SHA256-hashed body.  The entire request is then hashed again
+    /// and returned as a String.
     fn build_canonical_request(&self, headers: &Headers, body: &str) -> String {
         let mut canon_req = String::from("POST\n");
         let mut signed_headers = String::new();
@@ -167,6 +182,9 @@ impl ECSClient {
         canon_req
     }
 
+    /// Formats a single header according to the canonical format.  Header names must appear in
+    /// lowercase, followed by a ':', followed by the header value, with consecutive spaces
+    /// converted to single spaces.  A newline character terminates the String.
     fn fmt_canonical_header(&self, name: &str, value: &str) -> String {
         let mut header = String::from(name).to_lowercase();
         header.push_str(":");
