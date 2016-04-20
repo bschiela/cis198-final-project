@@ -4,7 +4,6 @@
 use hyper::header::{Headers, Header, HeaderFormat, Host, AcceptEncoding, ContentType, ContentLength};
 use custom_headers::{XAmzTarget, XAmzDate};
 use sodiumoxide::crypto::hash::sha256;
-use std::fmt::{Write, LowerHex};
 
 /// The default algorithm used for calculating the authentication signature.
 const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
@@ -111,15 +110,21 @@ fn fmt_canonical_header(name: &str, value: &str) -> String {
 /// hexadecimal String.
 fn hash_to_hex(input: &str) -> String {
     let digest = sha256::hash(input.as_bytes());
-    let mut buff = String::new();
-    //write!(&mut buff, "{:x}", digest.0);
-    //buff
-    unimplemented!()
+    let mut hashed = String::new();
+    for byte in &digest.0 {
+        hashed.push_str(&format!("{:02x}", byte));
+    }
+    hashed
 }
 
 #[cfg(test)]
 mod test {
+
+    #[test]
     fn test_digest_to_hex() {
-        println!("{}", super::hash_to_hex(""))
+        // expected hash value of an empty string
+        let expected = String::from("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+        println!("{}", super::hash_to_hex(""));
+        assert_eq!(expected, super::hash_to_hex(""))
     }
 }
