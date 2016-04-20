@@ -3,3 +3,4 @@ pub mod request;
 pub mod region;
 pub mod action;
 pub mod custom_headers;
+pub mod signature;
