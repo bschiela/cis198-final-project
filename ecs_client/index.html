@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,50 +44,56 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>ecs_client</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-0' class='srclink' href='../src/ecs_client/lib.rs.html#1-7' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-0' class='srclink' href='../src/ecs_client/src/lib.rs.html#1-14' title='goto source code'>[src]</a></span></h1>
 <h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>extern crate std as std;</code></td></tr><tr><td><code>extern crate hyper;</code></td></tr><tr><td><code>use std::prelude::<a class='mod' href='https://doc.rust-lang.org/nightly/std/prelude/v1/index.html' title='std::prelude::v1'>v1</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>extern crate std as std;</code></td></tr><tr><td><code>extern crate serde;</code></td></tr><tr><td><code>extern crate serde_json;</code></td></tr><tr><td><code>extern crate hyper;</code></td></tr><tr><td><code>extern crate time;</code></td></tr><tr><td><code>extern crate sodiumoxide;</code></td></tr><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='ecs_client/index.html'
-                               title='ecs_client::ecs_client'>ecs_client</a></td>
-                        <td class='docblock short'>
-                             <p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='params/index.html'
-                               title='ecs_client::params'>params</a></td>
-                        <td class='docblock short'>
-                             <p>Defines structs which contain the relevant parameters for each type of request to Amazon ECS.
-Each can be serialized to a json blob and set as the body of the HTTP request.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='region/index.html'
-                               title='ecs_client::region'>region</a></td>
-                        <td class='docblock short'>
-                             <p>An enum defining the regions in which Amazon ECS is supported.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='request/index.html'
-                               title='ecs_client::request'>request</a></td>
-                        <td class='docblock short'>
-                             <p>A Signature Version 4 Signable AWS Request to ECS</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='action/index.html'
+                                  title='ecs_client::action'>action</a></td>
+                           <td class='docblock short'>
+                                <p>An enum defining the possible actions which can be sent to Amazon ECS.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='custom_headers/index.html'
+                                  title='ecs_client::custom_headers'>custom_headers</a></td>
+                           <td class='docblock short'>
+                                <p>Defines the X-Amz-Target and X-Amz-Date custom HTTP headers using hyper macros</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='ecs_client/index.html'
+                                  title='ecs_client::ecs_client'>ecs_client</a></td>
+                           <td class='docblock short'>
+                                <p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='region/index.html'
+                                  title='ecs_client::region'>region</a></td>
+                           <td class='docblock short'>
+                                <p>An enum defining the regions in which Amazon ECS is supported.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='request/index.html'
+                                  title='ecs_client::request'>request</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='signature/index.html'
+                                  title='ecs_client::signature'>signature</a></td>
+                           <td class='docblock short'>
+                                <p>This module implements Amazon&#39;s Signature Version 4 Signing Algorithm which is required in
+order to make authenticated requests to any Amazon Web Service.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -129,7 +136,7 @@ Each can be serialized to a json blob and set as the body of the HTTP request.</
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

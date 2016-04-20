@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `src/ecs_client.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
+    <meta name="description" content="API documentation for the Rust `ECS_API_VERSION` constant in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ECS_API_VERSION">
 
-    <title>ecs_client.rs.html -- source</title>
+    <title>ecs_client::ecs_client::ECS_API_VERSION - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -27,7 +28,7 @@
 
     <nav class="sidebar">
         
-        
+        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'ECS_API_VERSION', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -41,59 +42,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
-<span id="2"> 2</span>
-<span id="3"> 3</span>
-<span id="4"> 4</span>
-<span id="5"> 5</span>
-<span id="6"> 6</span>
-<span id="7"> 7</span>
-<span id="8"> 8</span>
-<span id="9"> 9</span>
-<span id="10">10</span>
-<span id="11">11</span>
-<span id="12">12</span>
-<span id="13">13</span>
-<span id="14">14</span>
-<span id="15">15</span>
-<span id="16">16</span>
-<span id="17">17</span>
-<span id="18">18</span>
-<span id="19">19</span>
-<span id="20">20</span>
-<span id="21">21</span>
-<span id="22">22</span>
-<span id="23">23</span>
-<span id="24">24</span>
-<span id="25">25</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</span>
-
-<span class='kw'>use</span> <span class='ident'>region</span>::<span class='ident'>Region</span>;
-<span class='kw'>use</span> <span class='ident'>hyper</span>;
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ECSClient</span> {
-    <span class='ident'>region</span>: <span class='ident'>Region</span>,
-    <span class='ident'>client</span>: <span class='ident'>hyper</span>::<span class='ident'>Client</span>
-}
-
-<span class='comment'>// TODO provide code examples of how to use client</span>
-<span class='kw'>impl</span> <span class='ident'>ECSClient</span> {
-    <span class='doccomment'>/// creates a new ECSClient for the specified Region</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>region</span>: <span class='ident'>Region</span>) <span class='op'>-&gt;</span> <span class='ident'>ECSClient</span> {
-        <span class='ident'>ECSClient</span> {
-            <span class='ident'>region</span>: <span class='ident'>region</span>,
-            <span class='ident'>client</span>: <span class='ident'>hyper</span>::<span class='ident'>Client</span>::<span class='ident'>new</span>()
-        }
-    }
-
-    <span class='doccomment'>/// sets the Region to which the client sends requests</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_region</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>region</span>: <span class='ident'>Region</span>) {
-        <span class='self'>self</span>.<span class='ident'>region</span> <span class='op'>=</span> <span class='ident'>region</span>;
-    }
-}
-</pre>
-</section>
+    <section id='main' class="content constant">
+<h1 class='fqn'><span class='in-band'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>ecs_client</a>::<wbr><a class='constant' href=''>ECS_API_VERSION</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-23' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#19-20' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>const ECS_API_VERSION: &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a><code> = </code><code>"AmazonEC2ContainerServiceV20141113"</code></pre><div class='docblock'><p>The ECS API version this request is meant for.</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -136,7 +92,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

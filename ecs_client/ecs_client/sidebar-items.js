@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ECSClient",""]]});
+initSidebarItems({"constant":[["AMZ_SUBLEVEL_CONTENT_TYPE","The MIME sublevel content type of an ECS HTTP request body."],["ECS_API_VERSION","The ECS API version this request is meant for."],["SERVICE_ABBREVIATION","The service abbreviation string for Amazon ECS."]],"struct":[["ECSClient",""]]});

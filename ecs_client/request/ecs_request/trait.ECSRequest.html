@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `src/lib.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
+    <meta name="description" content="API documentation for the Rust `ECSRequest` trait in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ECSRequest">
 
-    <title>lib.rs.html -- source</title>
+    <title>ecs_client::request::ecs_request::ECSRequest - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -27,7 +28,7 @@
 
     <nav class="sidebar">
         
-        
+        <p class='location'><a href='../../index.html'>ecs_client</a>::<wbr><a href='../index.html'>request</a>::<wbr><a href='index.html'>ecs_request</a></p><script>window.sidebarCurrent = {name: 'ECSRequest', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -41,23 +42,19 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">1</span>
-<span id="2">2</span>
-<span id="3">3</span>
-<span id="4">4</span>
-<span id="5">5</span>
-<span id="6">6</span>
-<span id="7">7</span>
-</pre><pre class='rust '>
-<span class='attribute'>#[<span class='ident'>macro_use</span>(<span class='ident'>header</span>)]</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>hyper</span>;
-
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ecs_client</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>region</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>request</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>params</span>;
-</pre>
-</section>
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>ecs_client</a>::<wbr><a href='../index.html'>request</a>::<wbr><a href='index.html'>ecs_request</a>::<wbr><a class='trait' href=''>ECSRequest</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-66' class='srclink' href='../../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#93' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ECSRequest: <a class='trait' href='https://serde-rs.github.io/serde/serde/serde/ser/trait.Serialize.html' title='serde::ser::Serialize'>Serialize</a> { }</pre>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl ECSRequest for <a class='struct' href='../../../ecs_client/request/list_clusters/struct.ListClustersRequest.html' title='ecs_client::request::list_clusters::ListClustersRequest'>ListClustersRequest</a></code></li>
+</ul><script type="text/javascript" async
+                         src="../../../implementors/ecs_client/request/ecs_request/trait.ECSRequest.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -100,7 +97,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -109,13 +106,13 @@
     
 
     <script>
-        window.rootPath = "../../";
+        window.rootPath = "../../../";
         window.currentCrate = "ecs_client";
         window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
-    <script src="../../main.js"></script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
     
-    <script defer src="../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

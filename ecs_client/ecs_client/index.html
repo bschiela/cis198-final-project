@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,22 +44,43 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>ecs_client</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5' class='srclink' href='../../src/ecs_client/ecs_client.rs.html#1-25' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-9' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#1-86' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::<a class='mod' href='https://doc.rust-lang.org/nightly/std/prelude/v1/index.html' title='std::prelude::v1'>v1</a>::*;</code></td></tr><tr><td><code>use region::<a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>;</code></td></tr><tr><td><code>use <a class='mod' href='https://hyperium.github.io/hyper/hyper/index.html' title='hyper'>hyper</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use region::<a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>;</code></td></tr><tr><td><code>use action::<a class='enum' href='../../ecs_client/action/enum.ECSAction.html' title='ecs_client::action::ECSAction'>ECSAction</a>;</code></td></tr><tr><td><code>use <a class='mod' href='../../ecs_client/request/index.html' title='ecs_client::request'>request</a>::*;</code></td></tr><tr><td><code>use custom_headers::{<a class='struct' href='../../ecs_client/custom_headers/struct.XAmzTarget.html' title='ecs_client::custom_headers::XAmzTarget'>XAmzTarget</a>, <a class='struct' href='../../ecs_client/custom_headers/struct.XAmzDate.html' title='ecs_client::custom_headers::XAmzDate'>XAmzDate</a>};</code></td></tr><tr><td><code>use <a class='mod' href='../../ecs_client/signature/index.html' title='ecs_client::signature'>signature</a>;</code></td></tr><tr><td><code>use <a class='mod' href='https://hyperium.github.io/hyper/hyper/index.html' title='hyper'>hyper</a>;</code></td></tr><tr><td><code>use hyper::header::{<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/host/struct.Host.html' title='hyper::header::common::host::Host'>Host</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/accept_encoding/struct.AcceptEncoding.html' title='hyper::header::common::accept_encoding::AcceptEncoding'>AcceptEncoding</a>, <a class='enum' href='https://hyperium.github.io/hyper/hyper/header/shared/encoding/enum.Encoding.html' title='hyper::header::shared::encoding::Encoding'>Encoding</a>, <a class='fn' href='https://hyperium.github.io/hyper/hyper/header/shared/quality_item/fn.qitem.html' title='hyper::header::shared::quality_item::qitem'>qitem</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_type/struct.ContentType.html' title='hyper::header::common::content_type::ContentType'>ContentType</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_length/struct.ContentLength.html' title='hyper::header::common::content_length::ContentLength'>ContentLength</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/authorization/struct.Authorization.html' title='hyper::header::common::authorization::Authorization'>Authorization</a>};</code></td></tr><tr><td><code>use hyper::mime::{<a class='struct' href='https://hyperium.github.io/mime.rs/mime/struct.Mime.html' title='mime::Mime'>Mime</a>, <a class='enum' href='https://hyperium.github.io/mime.rs/mime/enum.TopLevel.html' title='mime::TopLevel'>TopLevel</a>, <a class='enum' href='https://hyperium.github.io/mime.rs/mime/enum.SubLevel.html' title='mime::SubLevel'>SubLevel</a>};</code></td></tr><tr><td><code>use serde_json;</code></td></tr><tr><td><code>use <a class='mod' href='https://doc.rust-lang.org/time/time/index.html' title='time'>time</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ECSClient.html'
-                               title='ecs_client::ecs_client::ECSClient'>ECSClient</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ECSClient.html'
+                                  title='ecs_client::ecs_client::ECSClient'>ECSClient</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.AMZ_SUBLEVEL_CONTENT_TYPE.html'
+                                  title='ecs_client::ecs_client::AMZ_SUBLEVEL_CONTENT_TYPE'>AMZ_SUBLEVEL_CONTENT_TYPE</a></td>
+                           <td class='docblock short'>
+                                <p>The MIME sublevel content type of an ECS HTTP request body.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.ECS_API_VERSION.html'
+                                  title='ecs_client::ecs_client::ECS_API_VERSION'>ECS_API_VERSION</a></td>
+                           <td class='docblock short'>
+                                <p>The ECS API version this request is meant for.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.SERVICE_ABBREVIATION.html'
+                                  title='ecs_client::ecs_client::SERVICE_ABBREVIATION'>SERVICE_ABBREVIATION</a></td>
+                           <td class='docblock short'>
+                                <p>The service abbreviation string for Amazon ECS.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,7 +123,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

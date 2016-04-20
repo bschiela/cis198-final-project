@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,32 +44,30 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>request</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-41' class='srclink' href='../../src/ecs_client/request.rs.html#1-82' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>A Signature Version 4 Signable AWS Request to ECS</p>
-</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::<a class='mod' href='https://doc.rust-lang.org/nightly/std/prelude/v1/index.html' title='std::prelude::v1'>v1</a>::*;</code></td></tr><tr><td><code>use std::<a class='mod' href='https://doc.rust-lang.org/nightly/core/mem/index.html' title='core::mem'>mem</a>;</code></td></tr><tr><td><code>use hyper::client::<a class='struct' href='https://hyperium.github.io/hyper/hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a>;</code></td></tr><tr><td><code>use hyper::header::{<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/host/struct.Host.html' title='hyper::header::common::host::Host'>Host</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/accept_encoding/struct.AcceptEncoding.html' title='hyper::header::common::accept_encoding::AcceptEncoding'>AcceptEncoding</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_type/struct.ContentType.html' title='hyper::header::common::content_type::ContentType'>ContentType</a>};</code></td></tr><tr><td><code>use hyper::mime::{<a class='struct' href='https://hyperium.github.io/mime.rs/mime/struct.Mime.html' title='mime::Mime'>Mime</a>, <a class='enum' href='https://hyperium.github.io/mime.rs/mime/enum.TopLevel.html' title='mime::TopLevel'>TopLevel</a>, <a class='enum' href='https://hyperium.github.io/mime.rs/mime/enum.SubLevel.html' title='mime::SubLevel'>SubLevel</a>};</code></td></tr><tr><td><code>use region::<a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-61' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#87-197' title='goto source code'>[src]</a></span></h1>
+<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ECSRequest.html'
-                               title='ecs_client::request::ECSRequest'>ECSRequest</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
-<table>
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.AMZ_SUBLEVEL_CONTENT_TYPE.html'
-                               title='ecs_client::request::AMZ_SUBLEVEL_CONTENT_TYPE'>AMZ_SUBLEVEL_CONTENT_TYPE</a></td>
-                        <td class='docblock short'>
-                             <p>The MIME sublevel content type of an ECS HTTP request body</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='ecs_request/index.html'
+                                  title='ecs_client::request::ecs_request'>ecs_request</a></td>
+                           <td class='docblock short'>
+                                <p>A marker trait to &quot;supertype&quot; each particular kind of ECS request.  Each ECSRequest must be
+serde::ser::Serialize so that it can be serialized to json and set as the payload of the
+request in the HTTP body.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='list_clusters/index.html'
+                                  title='ecs_client::request::list_clusters'>list_clusters</a></td>
+                           <td class='docblock short'>
+                                <p>A struct for a ListClusters request which can be serialized to json and set as the body of an
+HTTP request.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -111,7 +110,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

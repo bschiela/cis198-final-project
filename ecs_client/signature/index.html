@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `signature` mod in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, signature">
+
+    <title>ecs_client::signature - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'signature', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>signature</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-230' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#250-353' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This module implements Amazon&#39;s Signature Version 4 Signing Algorithm which is required in
+order to make authenticated requests to any Amazon Web Service.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use hyper::header::{<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, <a class='trait' href='https://hyperium.github.io/hyper/hyper/header/trait.Header.html' title='hyper::header::Header'>Header</a>, <a class='trait' href='https://hyperium.github.io/hyper/hyper/header/trait.HeaderFormat.html' title='hyper::header::HeaderFormat'>HeaderFormat</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/host/struct.Host.html' title='hyper::header::common::host::Host'>Host</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/accept_encoding/struct.AcceptEncoding.html' title='hyper::header::common::accept_encoding::AcceptEncoding'>AcceptEncoding</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_type/struct.ContentType.html' title='hyper::header::common::content_type::ContentType'>ContentType</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_length/struct.ContentLength.html' title='hyper::header::common::content_length::ContentLength'>ContentLength</a>};</code></td></tr><tr><td><code>use custom_headers::{<a class='struct' href='../../ecs_client/custom_headers/struct.XAmzTarget.html' title='ecs_client::custom_headers::XAmzTarget'>XAmzTarget</a>, <a class='struct' href='../../ecs_client/custom_headers/struct.XAmzDate.html' title='ecs_client::custom_headers::XAmzDate'>XAmzDate</a>};</code></td></tr><tr><td><code>use sodiumoxide::crypto::hash::sha256;</code></td></tr><tr><td><code>use std::fmt::{<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Write.html' title='core::fmt::Write'>Write</a>, <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a>};</code></td></tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.SIGNING_ALGORITHM.html'
+                                  title='ecs_client::signature::SIGNING_ALGORITHM'>SIGNING_ALGORITHM</a></td>
+                           <td class='docblock short'>
+                                <p>The default algorithm used for calculating the authentication signature.</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.build_canonical_request.html'
+                                  title='ecs_client::signature::build_canonical_request'>build_canonical_request</a></td>
+                           <td class='docblock short'>
+                                <p>Builds and returns the canonical request String according to the guidelines at
+<a href="http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html">http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html</a> .
+The canonical request contains the HTTP headers with lowercase names followed by their
+value, with consecutive spaces converted to single spaces.  The headers must appear in
+order sorted by character code in lowercase, followed by a list of headers included in the
+signed request, followed by SHA256-hashed body.  The entire request is then hashed again
+and returned as a String.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.calculate_signature.html'
+                                  title='ecs_client::signature::calculate_signature'>calculate_signature</a></td>
+                           <td class='docblock short'>
+                                <p>Calculates the Version 4 Signature according to the guidelines listed at
+<a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html</a> .</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.fmt_canonical_header.html'
+                                  title='ecs_client::signature::fmt_canonical_header'>fmt_canonical_header</a></td>
+                           <td class='docblock short'>
+                                <p>Formats a single header according to the canonical format.  Header names must appear in
+lowercase, followed by a &#39;:&#39;, followed by the header value, with consecutive spaces
+converted to single spaces.  A newline character terminates the String.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.hash_to_hex.html'
+                                  title='ecs_client::signature::hash_to_hex'>hash_to_hex</a></td>
+                           <td class='docblock short'>
+                                <p>Hashes the input &amp;str using SHA256, and converts the resulting digest to a lowercase
+hexadecimal String.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "ecs_client";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

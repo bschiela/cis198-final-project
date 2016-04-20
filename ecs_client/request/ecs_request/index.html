@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `params` mod in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, params">
+    <meta name="description" content="API documentation for the Rust `ecs_request` mod in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ecs_request">
 
-    <title>ecs_client::params - Rust</title>
+    <title>ecs_client::request::ecs_request - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -27,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'params', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../../index.html'>ecs_client</a>::<wbr><a href='../index.html'>request</a></p><script>window.sidebarCurrent = {name: 'ecs_request', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,25 +43,24 @@
     </nav>
 
     <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>params</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-76' class='srclink' href='../../src/ecs_client/params.rs.html#1-11' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>Defines structs which contain the relevant parameters for each type of request to Amazon ECS.
-Each can be serialized to a json blob and set as the body of the HTTP request.</p>
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>ecs_client</a>::<wbr><a href='../index.html'>request</a>::<wbr><a class='mod' href=''>ecs_request</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-63' class='srclink' href='../../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#88-94' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>A marker trait to &quot;supertype&quot; each particular kind of ECS request.  Each ECSRequest must be
+serde::ser::Serialize so that it can be serialized to json and set as the payload of the
+request in the HTTP body.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::<a class='mod' href='https://doc.rust-lang.org/nightly/std/prelude/v1/index.html' title='std::prelude::v1'>v1</a>::*;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use serde::ser::<a class='trait' href='https://serde-rs.github.io/serde/serde/serde/ser/trait.Serialize.html' title='serde::ser::Serialize'>Serialize</a>;</code></td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ListClustersParams.html'
-                               title='ecs_client::params::ListClustersParams'>ListClustersParams</a></td>
-                        <td class='docblock short'>
-                             <p>allowed parameters for a ListClusters request</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.ECSRequest.html'
+                                  title='ecs_client::request::ecs_request::ECSRequest'>ECSRequest</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -103,7 +103,7 @@ Each can be serialized to a json blob and set as the body of the HTTP request.</
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -112,13 +112,13 @@ Each can be serialized to a json blob and set as the body of the HTTP request.</
     
 
     <script>
-        window.rootPath = "../../";
+        window.rootPath = "../../../";
         window.currentCrate = "ecs_client";
         window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
-    <script src="../../main.js"></script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
     
-    <script defer src="../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

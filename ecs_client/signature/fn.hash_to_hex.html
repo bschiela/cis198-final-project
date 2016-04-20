@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `src/params.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
+    <meta name="description" content="API documentation for the Rust `hash_to_hex` fn in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, hash_to_hex">
 
-    <title>params.rs.html -- source</title>
+    <title>ecs_client::signature::hash_to_hex - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -27,7 +28,7 @@
 
     <nav class="sidebar">
         
-        
+        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a></p><script>window.sidebarCurrent = {name: 'hash_to_hex', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -41,37 +42,15 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
-<span id="2"> 2</span>
-<span id="3"> 3</span>
-<span id="4"> 4</span>
-<span id="5"> 5</span>
-<span id="6"> 6</span>
-<span id="7"> 7</span>
-<span id="8"> 8</span>
-<span id="9"> 9</span>
-<span id="10">10</span>
-<span id="11">11</span>
-<span id="12">12</span>
-<span id="13">13</span>
-<span id="14">14</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Defines structs which contain the relevant parameters for each type of request to Amazon ECS.</span>
-<span class='doccomment'>//! Each can be serialized to a json blob and set as the body of the HTTP request.</span>
-
-<span class='doccomment'>/// allowed parameters for a ListClusters request</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ListClustersParams</span> {
-    <span class='doccomment'>/// must be between 1 and 100, inclusive; defaults to 100 if missing or invalid</span>
-    <span class='ident'>max_results</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// an optional token returned by a previous ListClusters request indicating where to start</span>
-    <span class='doccomment'>/// the next page of paginated output (if there are more results than max_results)</span>
-    <span class='ident'>next_token</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
-}
-
-<span class='comment'>// TODO expand API once ListClusters works</span>
-
-</pre>
-</section>
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a>::<wbr><a class='fn' href=''>hash_to_hex</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-261' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#342-346' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>fn hash_to_hex(input: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></pre><div class='docblock'><p>Hashes the input &amp;str using SHA256, and converts the resulting digest to a lowercase
+hexadecimal String.</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -114,7 +93,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
