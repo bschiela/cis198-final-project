@@ -4,10 +4,10 @@ use region::Region;
 use action::ECSAction;
 use request::*;
 use custom_headers::{XAmzTarget, XAmzDate};
+use signature;
 
 use hyper;
-use hyper::client::RequestBuilder;
-use hyper::header::{Headers, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength};
+use hyper::header::{Headers, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength, Authorization};
 use hyper::mime::{Mime, TopLevel, SubLevel};
 
 use serde_json;
@@ -48,35 +48,35 @@ impl ECSClient {
         unimplemented!()
     }
 
+    /// Creates an HTTP request to be sent to Amazon ECS.
     /// Signs the request using Amazon's Signature Version 4 Signing Algorithm.
     /// Serializes the service request to json format and sets it as the payload in the HTTP body.
     /// Sends the request to ECS and returns the response.
     fn sign_and_send<T: ecs_request::ECSRequest>(&self,
                                                  action: ECSAction,
                                                  request: T) -> i32 {
-        let body_json = serde_json::to_string(&request).unwrap();
+        let body: String = serde_json::to_string(&request).unwrap();
+        let mut headers: Headers = self.build_headers(action, body.len() as u64);
+        let signature = signature::calculate_signature(&headers, &body);
+        headers.set(Authorization(signature));
+        
+        let req_builder = self.client.post("/");
 
-        let mut req_builder = self.client.post(&self.compute_hostname());
-        req_builder = self.set_headers(req_builder, action);
-
-        // set the json-serialized request as the body of the HTTP request
-        req_builder = self.set_body(req_builder, &body_json);
-
-        // TODO get credentials from environment
-        // TODO compute AuthV4 Signature -> set as Authorization header
-        // TODO send and return response (change return value from i32)
+        // TODO return response (change return value from i32)
+        let response = req_builder.headers(headers).body(&body).send();
         unimplemented!()
     }
 
-    /// Sets the Host, Accept-Encoding, X-Amz-Target, X-Amz-Date, and Content-Type HTTP headers.
-    fn set_headers<'a>(&self, req_builder: RequestBuilder<'a>, action: ECSAction) -> RequestBuilder<'a> {
+    /// Builds a hyper::header::Headers with the Host, Accept-Encoding, X-Amz-Target, X-Amz-Date,
+    /// Content-Type, and Content-Length HTTP headers set.
+    fn build_headers(&self, action: ECSAction, content_length: u64) -> Headers {
         let mut headers: Headers = Headers::new();
         headers.set(Host {
-            hostname: self.compute_hostname(),
+            hostname: self.build_hostname(),
             port: None,
         });
         headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
-        headers.set(XAmzTarget(self.compute_x_amz_target(action)));
+        headers.set(XAmzTarget(self.build_x_amz_target(action)));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
         headers.set(ContentType(
                 Mime(
@@ -86,17 +86,12 @@ impl ECSClient {
                 )
             )
         );
-        req_builder.headers(headers)
-    }
-
-    /// Sets the body of the HTTP request.
-    fn set_body<'a>(&self, req_builder: RequestBuilder<'a>, body: &'a str) -> RequestBuilder<'a> {
-        let content_length = body.len();
-        req_builder.body(body).header(ContentLength(content_length as u64))
+        headers.set(ContentLength(content_length));
+        headers
     }
 
     /// Builds and returns the hostname String used in the Host header.
-    fn compute_hostname(&self) -> String {
+    fn build_hostname(&self) -> String {
         let mut hostname = String::from(SERVICE_ABBREVIATION);
         hostname.push_str(".");
         hostname.push_str(&self.region.to_string());
@@ -105,15 +100,10 @@ impl ECSClient {
     }
 
     /// Builds and returns the target String used in the X-Amz-Target header.
-    fn compute_x_amz_target(&self, action: ECSAction) -> String {
+    fn build_x_amz_target(&self, action: ECSAction) -> String {
         let mut target = String::from(ECS_API_VERSION);
         target.push_str(".");
         target.push_str(&action.to_string());
         target
     }
-}
-
-#[cfg(test)]
-mod test {
-
 }
