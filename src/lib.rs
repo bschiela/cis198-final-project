@@ -5,6 +5,7 @@ extern crate serde;
 extern crate serde_json;
 #[macro_use] extern crate hyper;
 extern crate time;
+extern crate sodiumoxide; // for bindings to a crypto library
 
 #[cfg(feature = "serde_macros")]
 include!("lib.rs.in");

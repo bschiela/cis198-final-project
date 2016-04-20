@@ -3,6 +3,8 @@
 
 use hyper::header::{Headers, Header, HeaderFormat, Host, AcceptEncoding, ContentType, ContentLength};
 use custom_headers::{XAmzTarget, XAmzDate};
+use sodiumoxide::crypto::hash::sha256;
+use std::fmt::{Write, LowerHex};
 
 /// The default algorithm used for calculating the authentication signature.
 const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
@@ -80,6 +82,9 @@ fn build_canonical_request(headers: &Headers, body: &str) -> String {
 
     // add list of signed headers
     canon_req.push_str(&signed_headers);
+
+    // add hashed payload
+    canon_req.push_str(&self::hash_to_hex(body));
     canon_req
 }
 
@@ -102,3 +107,19 @@ fn fmt_canonical_header(name: &str, value: &str) -> String {
     canon_header
 }
 
+/// Hashes the input &str using SHA256, and converts the resulting digest to a lowercase
+/// hexadecimal String.
+fn hash_to_hex(input: &str) -> String {
+    let digest = sha256::hash(input.as_bytes());
+    let mut buff = String::new();
+    //write!(&mut buff, "{:x}", digest.0);
+    //buff
+    unimplemented!()
+}
+
+#[cfg(test)]
+mod test {
+    fn test_digest_to_hex() {
+        println!("{}", super::hash_to_hex(""))
+    }
+}
