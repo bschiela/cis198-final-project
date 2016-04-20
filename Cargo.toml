@@ -4,12 +4,17 @@ version = "0.1.0"
 authors = ["William Schiela <bschiela@gmail.com>"]
 build = "build.rs"
 
+[features]
+default = ["serde_codegen"]
+nightly = ["serde_macros"]
+
 [build-dependencies]
-serde_codegen = "*"
+serde_codegen = { version = "*", optional = true }
 syntex = "*"
 
 [dependencies]
 hyper = "0.8.0"
 serde = "*"
 serde_json = "*"
+serde_macros = { version = "*", optional = true }
 time = "0.1"
