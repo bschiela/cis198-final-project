@@ -12,6 +12,7 @@ const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
 /// http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html .
 pub fn calculate_signature(headers: &Headers, body: &str) -> String {
     let canonical_request = build_canonical_request(headers, body);
+    let hashed_canonical_request = self::hash_to_hex(&canonical_request);
     unimplemented!()
 }
 
@@ -79,7 +80,8 @@ fn build_canonical_request(headers: &Headers, body: &str) -> String {
     signed_headers.push_str(&XAmzTarget::header_name().to_lowercase());
     signed_headers.push_str("\n");
 
-    // add list of signed headers
+    // add list of signed headers in body
+    canon_req.push_str("\n");
     canon_req.push_str(&signed_headers);
 
     // add hashed payload
