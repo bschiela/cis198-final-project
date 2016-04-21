@@ -4,16 +4,19 @@
 use hyper::header::{Headers, Header, HeaderFormat, Host, AcceptEncoding, ContentType, ContentLength};
 use custom_headers::{XAmzTarget, XAmzDate};
 use sodiumoxide::crypto::hash::sha256;
+use region::Region;
 
 /// The default algorithm used for calculating the authentication signature.
 const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
+/// The termination string used in the credential scope value.
+const TERMINATION_STRING: &'static str = "aws4_request";
 
 /// Calculates the Version 4 Signature according to the guidelines listed at
 /// http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html .
-pub fn calculate_signature(headers: &Headers, body: &str) -> String {
+pub fn calculate_signature(headers: &Headers, body: &str, region: Region, serv_abbrev: &str) -> String {
     let canonical_request = build_canonical_request(headers, body);
     let hashed_canonical_request = hash_to_hex(&canonical_request);
-    let string_to_sign = build_string_to_sign();
+    let string_to_sign = build_string_to_sign(headers, region, serv_abbrev, &hashed_canonical_request);
     unimplemented!()
 }
 
@@ -123,8 +126,40 @@ fn hash_to_hex(input: &str) -> String {
 /// Builds the String To Sign according to the guidelines at
 /// http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html .
 /// The String To Sign is used with a derived signing key to calculate the signature.
-fn build_string_to_sign() -> String{
-    unimplemented!()
+fn build_string_to_sign(headers: &Headers,
+                        region: Region,
+                        serv_abbrev: &str,
+                        hashed_canon_req: &str) -> String {
+    // start with signing algorithm
+    let mut string_to_sign = String::from(SIGNING_ALGORITHM);
+    string_to_sign.push_str("\n");
+    // followed by request date value
+    let x_amz_date: &XAmzDate = headers.get().unwrap();
+    let x_amz_date_val: &str = &(x_amz_date as &(HeaderFormat + Send + Sync)).to_string();
+    string_to_sign.push_str(x_amz_date_val);
+    string_to_sign.push_str("\n");
+    // followed by credential scope
+    string_to_sign.push_str(&build_credential_scope(x_amz_date_val, region, serv_abbrev));
+    // followed by hashed canonical request
+    string_to_sign.push_str(hashed_canon_req);
+    string_to_sign
+}
+
+/// Builds the Credential Scope String, which is the date portion of the XAmzDate header,
+/// followed by the region, followed by the service abbreviation, followed by the termination
+/// string "aws4_request", (each separated by a "/" character), followed by a newline character.
+/// For example:
+/// 20160421/us-east-1/ecs/aws4_request\n
+fn build_credential_scope(datetime: &str, region: Region, serv_abbrev: &str) -> String {
+    let mut cred_scope = String::from(datetime.split("T").nth(1).unwrap());
+    cred_scope.push_str("/");
+    cred_scope.push_str(&region.to_string());
+    cred_scope.push_str("/");
+    cred_scope.push_str(serv_abbrev);
+    cred_scope.push_str("/");
+    cred_scope.push_str(TERMINATION_STRING);
+    cred_scope.push_str("\n");
+    cred_scope
 }
 
 #[cfg(test)]

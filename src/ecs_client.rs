@@ -57,7 +57,7 @@ impl ECSClient {
                                                  request: T) -> i32 {
         let body: String = serde_json::to_string(&request).unwrap();
         let mut headers: Headers = self.build_headers(action, body.len() as u64);
-        let signature = signature::calculate_signature(&headers, &body);
+        let signature = signature::calculate_signature(&headers, &body, self.region, SERVICE_ABBREVIATION);
         headers.set(Authorization(signature));
         
         let req_builder = self.client.post("/");
