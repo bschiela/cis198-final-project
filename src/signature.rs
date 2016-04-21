@@ -12,7 +12,8 @@ const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
 /// http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html .
 pub fn calculate_signature(headers: &Headers, body: &str) -> String {
     let canonical_request = build_canonical_request(headers, body);
-    let hashed_canonical_request = self::hash_to_hex(&canonical_request);
+    let hashed_canonical_request = hash_to_hex(&canonical_request);
+    let string_to_sign = build_string_to_sign();
     unimplemented!()
 }
 
@@ -117,6 +118,13 @@ fn hash_to_hex(input: &str) -> String {
         hashed.push_str(&format!("{:02x}", byte));
     }
     hashed
+}
+
+/// Builds the String To Sign according to the guidelines at
+/// http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html .
+/// The String To Sign is used with a derived signing key to calculate the signature.
+fn build_string_to_sign() -> String{
+    unimplemented!()
 }
 
 #[cfg(test)]
