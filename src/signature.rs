@@ -4,12 +4,20 @@
 use hyper::header::{Headers, Header, HeaderFormat, Host, AcceptEncoding, ContentType, ContentLength};
 use custom_headers::{XAmzTarget, XAmzDate};
 use sodiumoxide::crypto::hash::sha256;
+use sodiumoxide::crypto::auth::hmacsha256::{self, Key};
 use region::Region;
+use std::env;
 
 /// The default algorithm used for calculating the authentication signature.
 const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
 /// The termination string used in the credential scope value.
 const TERMINATION_STRING: &'static str = "aws4_request";
+/// The name of the environment variable in which your AWS Secret Access Key should be stored.
+const AWS_SECRET_ACCESS_KEY: &'static str = "AWS_SECRET_ACCESS_KEY";
+/// A String constant used in deriving the signing key.
+const AWS4: &'static str = "AWS4";
+/// A String constant used in deriving the signing key.
+const AWS4_REQUEST: &'static str = "aws4_request";
 
 /// Calculates the Version 4 Signature according to the guidelines listed at
 /// http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html .
@@ -17,6 +25,7 @@ pub fn calculate_signature(headers: &Headers, body: &str, region: Region, serv_a
     let canonical_request = build_canonical_request(headers, body);
     let hashed_canonical_request = hash_to_hex(&canonical_request);
     let string_to_sign = build_string_to_sign(headers, region, serv_abbrev, &hashed_canonical_request);
+    let signing_key = derive_signing_key(headers, region, serv_abbrev);
     unimplemented!()
 }
 
@@ -160,6 +169,41 @@ fn build_credential_scope(datetime: &str, region: Region, serv_abbrev: &str) -> 
     cred_scope.push_str(TERMINATION_STRING);
     cred_scope.push_str("\n");
     cred_scope
+}
+
+/// Derives the signing key from your AWS secret access key, the date of your request, the service
+/// name, and the region the request is being sent to.  AWS credentials are sourced from
+/// environment variables.  Your AWS secret access key must be stored in an environment variable
+/// called AWS_SECRET_ACCESS_KEY.
+fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [u8; 32] {
+    let mut init_key = String::from(AWS4);
+    init_key.push_str(&get_aws_secret_access_key());
+    let date: &XAmzDate = headers.get().unwrap();
+    let date_val = date.0.split("T").nth(1).unwrap(); // use only the date portion
+    // derive the key
+    let date_key = hmacsha256::authenticate(date_val.as_bytes(), &Key::from_slice(init_key.as_bytes()).unwrap());
+    let region_key = hmacsha256::authenticate(region.to_string().as_bytes(), &Key::from_slice(&date_key.0).unwrap());
+    let service_key = hmacsha256::authenticate(serv_abbrev.as_bytes(), &Key::from_slice(&region_key.0).unwrap());
+    let signing_key = hmacsha256::authenticate(AWS4_REQUEST.as_bytes(), &Key::from_slice(&service_key.0).unwrap());
+    signing_key.0
+}
+
+/// Gets your AWS Secret Access Key from the environment variable AWS_SECRET_ACCESS_KEY
+fn get_aws_secret_access_key() -> String {
+    match env::var(AWS_SECRET_ACCESS_KEY) {
+        Ok(val) => {
+            if val == "" {
+                panic!("Your AWS Secret Access Key must be stored in the environment variable called AWS_SECRET_ACCESS_KEY.\n
+                Try: \n $ export AWS_SECRET_ACCESS_KEY=\"yoursecretaccesskey\"\n");
+            } else {
+                val
+            }
+        }
+        Err(e) => {
+            println!("Couldn't interpret {}: {}", AWS_SECRET_ACCESS_KEY, e);
+            panic!("Couldn't obtain AWS Secret Access Key from environment!");
+        }
+    }
 }
 
 #[cfg(test)]
