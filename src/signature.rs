@@ -208,6 +208,10 @@ fn get_aws_secret_access_key() -> String {
 
 #[cfg(test)]
 mod test {
+    use std::env;
+    use region::Region;
+    use hyper::header::Headers;
+    use custom_headers::XAmzDate;
 
     #[test]
     fn test_digest_to_hex() {
@@ -215,5 +219,27 @@ mod test {
         let expected = String::from("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
         println!("{}", super::hash_to_hex(""));
         assert_eq!(expected, super::hash_to_hex(""))
+    }
+    
+    // using the example at http://docs.aws.amazon.com/general/latest/gr/sigv4-calculate-signature.html
+    #[test]
+    fn test_derive_signing_key() {
+        let aws_secret_access_key = "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY";
+        env::set_var(super::AWS_SECRET_ACCESS_KEY, aws_secret_access_key);
+        let test_headers = build_test_headers();
+        
+        let expected_bytes = vec![196, 175, 177, 204, 87, 113, 216, 113, 118, 58, 57, 62, 68,
+            183, 3, 87, 27, 85, 204, 40, 66, 77, 26, 94, 134, 218, 110, 211, 193, 84, 164, 185];
+        let result = super::derive_signing_key(&test_headers, Region::USEast1, "iam");
+        for (i, byte) in result.iter().enumerate() {
+            println!("{}", byte);
+            assert_eq!(*expected_bytes.get(i).unwrap(), *byte as i32);
+        }
+    }
+
+    fn build_test_headers() -> Headers {
+        let mut headers = Headers::new();
+        headers.set(XAmzDate(String::from("20150830T000000")));
+        headers
     }
 }
