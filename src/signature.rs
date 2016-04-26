@@ -179,14 +179,31 @@ fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [
     let mut init_key = String::from(AWS4);
     init_key.push_str(&get_aws_secret_access_key());
     let date: &XAmzDate = headers.get().unwrap();
-    let date_val = date.0.split("T").nth(1).unwrap(); // use only the date portion
+    let date_val = date.0.split("T").nth(0).unwrap(); // use only the date portion
     // derive the key
+    println!("init_key={}", init_key);
     let mut state = State::init(&init_key.as_bytes());
+
+    println!("hashing date={}", date_val);
     state.update(&date_val.as_bytes());
+    let date_key = state.finalize();
+
+    println!("hashing region={}", region.to_string());
+    state = State::init(&date_key.0);
     state.update(&region.to_string().as_bytes());
+    let region_key = state.finalize();
+
+    println!("hashing service={}", serv_abbrev);
+    state = State::init(&region_key.0);
     state.update(&serv_abbrev.as_bytes());
+    let service_key = state.finalize();
+
+    println!("hashing termination_string={}", AWS4_REQUEST);
+    state = State::init(&service_key.0);
     state.update(&AWS4_REQUEST.as_bytes());
     let signing_key = state.finalize();
+
+    println!("derived signing key = {:?}", signing_key.0);
     signing_key.0
 }
 
@@ -233,6 +250,7 @@ mod test {
         let expected_bytes = vec![196, 175, 177, 204, 87, 113, 216, 113, 118, 58, 57, 62, 68,
             183, 3, 87, 27, 85, 204, 40, 66, 77, 26, 94, 134, 218, 110, 211, 193, 84, 164, 185];
         let result = super::derive_signing_key(&test_headers, Region::USEast1, "iam");
+        assert_eq!(32, result.len());
         for (i, byte) in result.iter().enumerate() {
             println!("{}", byte);
             assert_eq!(*expected_bytes.get(i).unwrap(), *byte as i32);
