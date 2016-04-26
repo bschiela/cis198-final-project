@@ -4,7 +4,7 @@
 use hyper::header::{Headers, Header, HeaderFormat, Host, AcceptEncoding, ContentType, ContentLength};
 use custom_headers::{XAmzTarget, XAmzDate};
 use sodiumoxide::crypto::hash::sha256;
-use sodiumoxide::crypto::auth::hmacsha256::{self, State};
+use sodiumoxide::crypto::auth::hmacsha256::State;
 use region::Region;
 use std::env;
 
