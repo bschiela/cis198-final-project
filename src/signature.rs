@@ -4,7 +4,7 @@
 use hyper::header::{Headers, Header, HeaderFormat, Host, AcceptEncoding, ContentType, ContentLength};
 use custom_headers::{XAmzTarget, XAmzDate};
 use sodiumoxide::crypto::hash::sha256;
-use sodiumoxide::crypto::auth::hmacsha256::{self, Key};
+use sodiumoxide::crypto::auth::hmacsha256::{self, State};
 use region::Region;
 use std::env;
 
@@ -181,10 +181,12 @@ fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [
     let date: &XAmzDate = headers.get().unwrap();
     let date_val = date.0.split("T").nth(1).unwrap(); // use only the date portion
     // derive the key
-    let date_key = hmacsha256::authenticate(date_val.as_bytes(), &Key::from_slice(init_key.as_bytes()).unwrap());
-    let region_key = hmacsha256::authenticate(region.to_string().as_bytes(), &Key::from_slice(&date_key.0).unwrap());
-    let service_key = hmacsha256::authenticate(serv_abbrev.as_bytes(), &Key::from_slice(&region_key.0).unwrap());
-    let signing_key = hmacsha256::authenticate(AWS4_REQUEST.as_bytes(), &Key::from_slice(&service_key.0).unwrap());
+    let mut state = State::init(&init_key.as_bytes());
+    state.update(&date_val.as_bytes());
+    state.update(&region.to_string().as_bytes());
+    state.update(&serv_abbrev.as_bytes());
+    state.update(&AWS4_REQUEST.as_bytes());
+    let signing_key = state.finalize();
     signing_key.0
 }
 
