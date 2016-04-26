@@ -1,8 +1,7 @@
 //! This module contains the ECSClient which can be used to interact with Amazon ECS's API.
 
 use region::Region;
-use action::ECSAction;
-use request::*;
+use action::*;
 use custom_headers::{XAmzTarget, XAmzDate};
 use signature;
 
@@ -44,7 +43,7 @@ impl ECSClient {
 
     /// Lists all of your compute clusters on ECS.
     pub fn list_clusters(&self, request: list_clusters::ListClustersRequest) {
-        let response = self.sign_and_send(ECSAction::ListClusters, request);
+        let response = self.sign_and_send(ecs_action::ECSAction::ListClusters, request);
         // TODO: deserialize and return response
         unimplemented!()
     }
@@ -53,9 +52,9 @@ impl ECSClient {
     /// Signs the request using Amazon's Signature Version 4 Signing Algorithm.
     /// Serializes the service request to json format and sets it as the payload in the HTTP body.
     /// Sends the request to ECS and returns the response.
-    fn sign_and_send<T: ecs_request::ECSRequest>(&self,
-                                                 action: ECSAction,
-                                                 request: T) -> i32 {
+    fn sign_and_send<T: ecs_action::ECSRequest>(&self,
+                                                action: ecs_action::ECSAction,
+                                                request: T) -> i32 {
         let body: String = serde_json::to_string(&request).unwrap();
         let mut headers: Headers = self.build_headers(action, body.len() as u64);
         let signature = signature::calculate_signature(&headers, &body, self.region, SERVICE_ABBREVIATION);
@@ -70,7 +69,7 @@ impl ECSClient {
 
     /// Builds a hyper::header::Headers with the Host, Accept-Encoding, X-Amz-Target, X-Amz-Date,
     /// Content-Type, and Content-Length HTTP headers set.
-    fn build_headers(&self, action: ECSAction, content_length: u64) -> Headers {
+    fn build_headers(&self, action: ecs_action::ECSAction, content_length: u64) -> Headers {
         let mut headers: Headers = Headers::new();
         headers.set(Host {
             hostname: self.build_hostname(),
@@ -101,7 +100,7 @@ impl ECSClient {
     }
 
     /// Builds and returns the target String used in the X-Amz-Target header.
-    fn build_x_amz_target(&self, action: ECSAction) -> String {
+    fn build_x_amz_target(&self, action: ecs_action::ECSAction) -> String {
         let mut target = String::from(ECS_API_VERSION);
         target.push_str(".");
         target.push_str(&action.to_string());

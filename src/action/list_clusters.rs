@@ -1,7 +1,6 @@
 //! Defines request and response types for a ListClusters action.
 
-use request::ecs_request::ECSRequest;
-use request::ecs_request::ECSResponse;
+use action::ecs_action::{ECSRequest, ECSResponse};
 
 #[allow(non_snake_case)]
 #[derive(Serialize, Debug)]
@@ -34,6 +33,8 @@ pub struct ListClustersResponse {
 
 /// Used so that a ListClustersRequest can be passed as a generic ECSRequest.
 impl ECSRequest for ListClustersRequest {}
+
+/// Used so that a ListClustersResponse can be returned as a generic ECSResponse.
 impl ECSResponse for ListClustersResponse {}
 
 #[cfg(test)]
