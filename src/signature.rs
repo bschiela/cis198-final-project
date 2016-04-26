@@ -26,7 +26,8 @@ pub fn calculate_signature(headers: &Headers, body: &str, region: Region, serv_a
     let hashed_canonical_request = hash_to_hex(&canonical_request);
     let string_to_sign = build_string_to_sign(headers, region, serv_abbrev, &hashed_canonical_request);
     let signing_key = derive_signing_key(headers, region, serv_abbrev);
-    unimplemented!()
+    let signature = sign(&signing_key, &string_to_sign);
+    signature
 }
 
 
@@ -125,11 +126,16 @@ fn fmt_canonical_header(name: &str, value: &str) -> String {
 /// hexadecimal String.
 fn hash_to_hex(input: &str) -> String {
     let digest = sha256::hash(input.as_bytes());
-    let mut hashed = String::new();
-    for byte in &digest.0 {
-        hashed.push_str(&format!("{:02x}", byte));
+    hex_encode(&digest.0)
+}
+
+/// Encodes the input byte slice as a lowercase hexadecimal value.
+fn hex_encode(digest: &[u8; 32]) -> String {
+    let mut hex = String::new();
+    for byte in digest {
+        hex.push_str(&format!("{:02x}", byte));
     }
-    hashed
+    hex
 }
 
 /// Builds the String To Sign according to the guidelines at
@@ -207,7 +213,7 @@ fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [
     signing_key.0
 }
 
-/// Gets your AWS Secret Access Key from the environment variable AWS_SECRET_ACCESS_KEY
+/// Gets your AWS Secret Access Key from the environment variable AWS_SECRET_ACCESS_KEY.
 fn get_aws_secret_access_key() -> String {
     match env::var(AWS_SECRET_ACCESS_KEY) {
         Ok(val) => {
@@ -223,6 +229,14 @@ fn get_aws_secret_access_key() -> String {
             panic!("Couldn't obtain AWS Secret Access Key from environment!");
         }
     }
+}
+
+/// Signs the 'string to sign' and returns the calculated signature.
+fn sign(signing_key: &[u8; 32], string_to_sign: &str) -> String {
+    let mut state = State::init(signing_key);
+    state.update(&string_to_sign.as_bytes());
+    let signature = state.finalize();
+    hex_encode(&signature.0)
 }
 
 #[cfg(test)]
@@ -243,8 +257,7 @@ mod test {
     // using the example at http://docs.aws.amazon.com/general/latest/gr/sigv4-calculate-signature.html
     #[test]
     fn test_derive_signing_key() {
-        let aws_secret_access_key = "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY";
-        env::set_var(super::AWS_SECRET_ACCESS_KEY, aws_secret_access_key);
+        init_test_state();
         let test_headers = build_test_headers();
         
         let expected_bytes = vec![196, 175, 177, 204, 87, 113, 216, 113, 118, 58, 57, 62, 68,
@@ -257,9 +270,29 @@ mod test {
         }
     }
 
+    #[test]
+    fn test_sign() {
+        init_test_state();
+        let test_headers = build_test_headers();
+        let signing_key = super::derive_signing_key(&test_headers, Region::USEast1, "iam");
+        let string_to_sign = 
+            "AWS4-HMAC-SHA256\n
+            20150830T123600Z\n
+            20150830/us-east-1/iam/aws4_request\n
+            f536975d06c0309214f805bb90ccff089219ecd68b2577efef23edd43b7e1a59";
+        let expected = "5d672d79c15b13162d9279b0855cfba6789a8edb4c82c400e06b5924a6f2b5d7";
+        let result = super::sign(&signing_key, &string_to_sign);
+        assert_eq!(expected, result);
+    }
+
     fn build_test_headers() -> Headers {
         let mut headers = Headers::new();
         headers.set(XAmzDate(String::from("20150830T000000")));
         headers
+    }
+
+    fn init_test_state() {
+        let aws_secret_access_key = "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY";
+        env::set_var(super::AWS_SECRET_ACCESS_KEY, aws_secret_access_key);
     }
 }
