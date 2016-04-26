@@ -21,6 +21,7 @@ const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
 /// The ECS API version this request is meant for.
 const ECS_API_VERSION: &'static str = "AmazonEC2ContainerServiceV20141113";
 
+#[derive(Debug)]
 pub struct ECSClient {
     region: Region,
     client: hyper::Client

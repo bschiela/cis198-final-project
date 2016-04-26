@@ -2,7 +2,7 @@
 
 use std::fmt::{Display, Formatter, Error};
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum ECSAction {
     ListClusters,
 }
