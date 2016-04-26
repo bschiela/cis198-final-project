@@ -177,14 +177,26 @@ fn build_credential_scope(datetime: &str, region: Region, serv_abbrev: &str) -> 
 /// called AWS_SECRET_ACCESS_KEY.
 fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [u8; 32] {
     let mut init_key = String::from(AWS4);
+    println!("getting secret access key from env..."); // TODO remove
     init_key.push_str(&get_aws_secret_access_key());
+    println!("init_key is {}", init_key); // TODO remove
+    println!("getting xamzdate from headers"); // TODO remove
     let date: &XAmzDate = headers.get().unwrap();
-    let date_val = date.0.split("T").nth(1).unwrap(); // use only the date portion
+    println!("date is {:?}", date);
+    println!("getting date_val");
+    let date_val = date.0.split("T").nth(0).unwrap(); // use only the date portion
+    println!("date_val is {}", date_val);
     // derive the key
-    let date_key = hmacsha256::authenticate(date_val.as_bytes(), &Key::from_slice(init_key.as_bytes()).unwrap());
+    let init_key_Key = &Key::from_slice(init_key.as_bytes());
+    println!("from_slice returning {:?}", init_key_Key);
+    let date_key = hmacsha256::authenticate(date_val.as_bytes(), &Key::from_slice("".as_bytes()).unwrap());
+    println!("got date_key"); // TODO remove
     let region_key = hmacsha256::authenticate(region.to_string().as_bytes(), &Key::from_slice(&date_key.0).unwrap());
+    println!("got region_key"); // TODO remove
     let service_key = hmacsha256::authenticate(serv_abbrev.as_bytes(), &Key::from_slice(&region_key.0).unwrap());
+    println!("got service_key"); // TODO remove
     let signing_key = hmacsha256::authenticate(AWS4_REQUEST.as_bytes(), &Key::from_slice(&service_key.0).unwrap());
+    println!("got signing_key"); // TODO remove
     signing_key.0
 }
 
@@ -239,7 +251,7 @@ mod test {
 
     fn build_test_headers() -> Headers {
         let mut headers = Headers::new();
-        headers.set(XAmzDate(String::from("20150830T000000")));
+        headers.set(XAmzDate(String::from("20150830T000000Z")));
         headers
     }
 }
