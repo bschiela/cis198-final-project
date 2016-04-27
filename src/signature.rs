@@ -56,6 +56,7 @@ pub fn build_auth_header(headers: &Headers, body: &str, region: Region, serv_abb
     auth_header.push_str(SIGNATURE);
     auth_header.push_str("=");
     auth_header.push_str(&signature);
+    println!("auth_header={}", auth_header);
     auth_header
 }
 

@@ -1,6 +1,7 @@
 //! Defines request and response types for a ListClusters action.
 
 use action::ecs_action::{ECSRequest, ECSResponse};
+use custom_ser;
 
 /// A ListClusters request type which can be serialized to json and set as the body of an HTTP
 /// request.  Construct one of these and pass it to your client in the ecs_client::list_clusters()
@@ -11,10 +12,12 @@ pub struct ListClustersRequest {
     /// The max number of cluster results returned in paginated output. 
     /// Must be between 1 and 100, inclusive.
     /// If omitted, defaults to 100.
+    #[serde(skip_serializing_if="custom_ser::is_none")]
     maxResults: Option<u8>,
     /// The value returned from a previous paginated request. 
     /// Pagination continues from the end of the previous results that returned the value.
     /// The value returned is null if there are no more results to return.
+    #[serde(skip_serializing_if="custom_ser::is_none")]
     nextToken: Option<String>,
 }
 
@@ -123,7 +126,7 @@ mod test {
             maxResults: None,
             nextToken: None,
         };
-        let expected: value::Value = serde_json::from_str("{\"maxResults\":null,\"nextToken\":null}").unwrap();
+        let expected: value::Value = serde_json::from_str("{}").unwrap();
         let actual: value::Value = value::to_value(&req);
         assert_eq!(expected, actual);
 
