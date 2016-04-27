@@ -25,7 +25,7 @@ const CREDENTIAL: &'static str = "Credential";
 /// The SignedHeaders key string used in the Authorization header.
 const SIGNED_HEADERS: &'static str = "SignedHeaders";
 /// The Signature key string used in the Authorization header.
-const Signature: &'static str = "Signature";
+const SIGNATURE: &'static str = "Signature";
 
 /// Builds the Authorization HTTP header with all the required authentication information
 /// prescribed in http://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html .
@@ -37,8 +37,25 @@ const Signature: &'static str = "Signature";
 /// the signing process!
 pub fn build_auth_header(headers: &Headers, body: &str, region: Region, serv_abbrev: &str) -> String {
     let (signature, credential_scope, signed_headers) = calculate_signature(headers, body, region, serv_abbrev);
-    unimplemented!()
+    let mut auth_header = String::from(SIGNING_ALGORITHM);
+    auth_header.push_str(" ");
 
+    auth_header.push_str(CREDENTIAL);
+    auth_header.push_str("=");
+    auth_header.push_str(&get_from_environment(AWS_ACCESS_KEY_ID));
+    auth_header.push_str("/");
+    auth_header.push_str(&credential_scope);
+    auth_header.push_str(", ");
+
+    auth_header.push_str(SIGNED_HEADERS);
+    auth_header.push_str("=");
+    auth_header.push_str(&signed_headers);
+    auth_header.push_str(", ");
+
+    auth_header.push_str(SIGNATURE);
+    auth_header.push_str("=");
+    auth_header.push_str(&signature);
+    auth_header
 }
 
 /// Calculates the Version 4 Signature according to the guidelines listed at
