@@ -37,6 +37,27 @@ impl ECSRequest for ListClustersRequest {}
 /// Used so that a ListClustersResponse can be returned as a generic ECSResponse.
 impl ECSResponse for ListClustersResponse {}
 
+/// Implements some convenience methods for building a ListClustersRequest.
+impl ListClustersRequest {
+    pub fn new() -> Self {
+        ListClustersRequest {
+            maxResults: None,
+            nextToken: None,
+        }
+    }
+}
+
+/// Implements some convenience methods for looking at values returned in a ListClustersResponse.
+impl ListClustersResponse {
+    pub fn get_cluster_arns(&self) -> &Vec<String> {
+        &self.clusterArns
+    }
+
+    pub fn get_next_token(&self) -> &Option<String> {
+        &self.nextToken
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::ListClustersRequest;
