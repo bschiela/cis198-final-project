@@ -36,7 +36,7 @@ impl ECSClient {
     pub fn for_region(region: Region) -> ECSClient {
         ECSClient {
             region: region,
-            client: hyper::Client::new()
+            client: hyper::Client::new(),
         }
     }
 
@@ -66,9 +66,12 @@ impl ECSClient {
         let auth_header = signature::build_auth_header(&headers, &body, self.region, SERVICE_ABBREVIATION);
         headers.set(Authorization(auth_header));
         
-        let req_builder = self.client.post("/");
+        let req_builder = self.client.post("https://ecs.us-west-2.amazonaws.com");
 
+        println!("Sending request...\n{}", headers);
+        println!("Request body...\n{}", body);
         let response = req_builder.headers(headers).body(&body).send();
+        println!("Received response...\n{:?}", response);
         response.unwrap()
     }
 
