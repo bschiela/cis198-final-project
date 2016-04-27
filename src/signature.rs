@@ -216,7 +216,7 @@ fn build_string_to_sign(headers: &Headers,
 /// For example:
 /// 20160421/us-east-1/ecs/aws4_request\n
 fn build_credential_scope(datetime: &str, region: Region, serv_abbrev: &str) -> String {
-    let mut cred_scope = String::from(datetime.split("T").nth(1).unwrap());
+    let mut cred_scope = String::from(datetime.split("T").nth(0).unwrap());
     cred_scope.push_str("/");
     cred_scope.push_str(&region.to_string());
     cred_scope.push_str("/");
