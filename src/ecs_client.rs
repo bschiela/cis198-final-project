@@ -51,10 +51,10 @@ impl ECSClient {
     /// Creates an HTTP request to be sent to Amazon ECS.
     /// Signs the request using Amazon's Signature Version 4 Signing Algorithm.
     /// Serializes the service request to json format and sets it as the payload in the HTTP body.
-    /// Sends the request to ECS and returns the response.
+    /// Sends the request to ECS and returns the hyper::client::Response.
     fn sign_and_send<T: ecs_action::ECSRequest>(&self,
                                                 action: ecs_action::ECSAction,
-                                                request: T) -> i32 {
+                                                request: T) -> hyper::client::Response {
         let body: String = serde_json::to_string(&request).unwrap();
         let mut headers: Headers = self.build_headers(action, body.len() as u64);
         let auth_header = signature::build_auth_header(&headers, &body, self.region, SERVICE_ABBREVIATION);
@@ -62,9 +62,8 @@ impl ECSClient {
         
         let req_builder = self.client.post("/");
 
-        // TODO return response (change return value from i32)
         let response = req_builder.headers(headers).body(&body).send();
-        unimplemented!()
+        response.unwrap()
     }
 
     /// Builds a hyper::header::Headers with the Host, Accept-Encoding, X-Amz-Target, X-Amz-Date,
