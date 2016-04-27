@@ -12,6 +12,7 @@ use hyper::mime::{Mime, TopLevel, SubLevel};
 use serde_json;
 use time;
 use std::result;
+use std::io::Read;
 
 /// The service abbreviation string for Amazon ECS.
 const SERVICE_ABBREVIATION: &'static str = "ecs";
@@ -45,10 +46,12 @@ impl ECSClient {
     }
 
     /// Lists all of your compute clusters on ECS.
-    pub fn list_clusters(&self, request: list_clusters::ListClustersRequest) {
-        let response = self.sign_and_send(ecs_action::ECSAction::ListClusters, request);
-        // TODO: deserialize and return response
-        unimplemented!()
+    pub fn list_clusters(&self, request: list_clusters::ListClustersRequest) -> list_clusters::ListClustersResponse {
+        let mut response = self.sign_and_send(ecs_action::ECSAction::ListClusters, request);
+        let mut response_body = String::new();
+        response.read_to_string(&mut response_body).unwrap();
+        let list_clusters_response: list_clusters::ListClustersResponse = serde_json::from_str(&response_body).unwrap();
+        list_clusters_response
     }
 
     /// Creates an HTTP request to be sent to Amazon ECS.
