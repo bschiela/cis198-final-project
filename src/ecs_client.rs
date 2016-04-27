@@ -66,13 +66,21 @@ impl ECSClient {
         let auth_header = signature::build_auth_header(&headers, &body, self.region, SERVICE_ABBREVIATION);
         headers.set(Authorization(auth_header));
         
-        let req_builder = self.client.post("https://ecs.us-west-2.amazonaws.com");
+        let req_builder = self.client.post(&self.build_request_uri());
 
         println!("Sending request...\n{}", headers);
         println!("Request body...\n{}", body);
         let response = req_builder.headers(headers).body(&body).send();
         println!("Received response...\n{:?}", response);
         response.unwrap()
+    }
+
+    /// Builds the request URI based on the Region this client is currently configured to send
+    /// requests to.
+    fn build_request_uri(&self) -> String {
+        let mut uri = String::from("https://");
+        uri.push_str(&self.build_hostname());
+        uri
     }
 
     /// Builds a hyper::header::Headers with the Host, Accept-Encoding, X-Amz-Target, X-Amz-Date,
