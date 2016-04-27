@@ -47,14 +47,16 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-242' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#275-325' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>fn build_canonical_request(headers: &amp;<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, body: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></pre><div class='docblock'><p>Builds and returns the canonical request String according to the guidelines at
+               </span><a id='src-407' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#563-615' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>fn build_canonical_request(headers: &amp;<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, body: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></pre><div class='docblock'><p>Builds and returns the canonical request String according to the guidelines at
 <a href="http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html">http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html</a> .
 The canonical request contains the HTTP headers with lowercase names followed by their
 value, with consecutive spaces converted to single spaces.  The headers must appear in
 order sorted by character code in lowercase, followed by a list of headers included in the
 signed request, followed by SHA256-hashed body.  The entire request is then hashed again
-and returned as a String.</p>
+and returned in a (String, String)=(canonical_request, signed_headers) tuple so that the
+signed_headers value used during the signing process can be built into the Authorization
+HTTP header.</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 

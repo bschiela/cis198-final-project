@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `request` mod in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, request">
+    <meta name="description" content="API documentation for the Rust `AWS4` constant in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, AWS4">
 
-    <title>ecs_client::request - Rust</title>
+    <title>ecs_client::signature::AWS4 - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -28,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'request', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a></p><script>window.sidebarCurrent = {name: 'AWS4', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,34 +42,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>request</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content constant">
+<h1 class='fqn'><span class='in-band'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a>::<wbr><a class='constant' href=''>AWS4</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-61' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#87-199' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This module defines request types which can be serialized to json and set as the payload of an
-HTTP request body.</p>
-</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='ecs_request/index.html'
-                                  title='ecs_client::request::ecs_request'>ecs_request</a></td>
-                           <td class='docblock short'>
-                                <p>A marker trait to &quot;supertype&quot; each particular kind of ECS request.  Each ECSRequest must be
-serde::ser::Serialize so that it can be serialized to json and set as the payload of the
-request in the HTTP body.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='list_clusters/index.html'
-                                  title='ecs_client::request::list_clusters'>list_clusters</a></td>
-                           <td class='docblock short'>
-                                <p>A struct for a ListClusters request which can be serialized to json and set as the body of an
-HTTP request.</p>
-                           </td>
-                       </tr></table></section>
+               </span><a id='src-379' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#498' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>const AWS4: &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a><code> = </code><code>"AWS4"</code></pre><div class='docblock'><p>A String constant used in deriving the signing key.</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

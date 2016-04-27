@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `action` mod in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, action">
+    <meta name="description" content="API documentation for the Rust `error` mod in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, error">
 
-    <title>ecs_client::action - Rust</title>
+    <title>ecs_client::error - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -28,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'action', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'error', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,28 +43,22 @@
     </nav>
 
     <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>action</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>error</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-116' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#146-473' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This module defines request and response types for the various actions supported by ECS.</p>
+               </span><a id='src-490' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#797-806' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This module defines Error types that may be returned when sending a request to Amazon ECS.
+Note that the ECS API reference defines &#39;Exception&#39; types, but we map each Amazon ECS 
+Exception to a Rust Error.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='ecs_action/index.html'
-                                  title='ecs_client::action::ecs_action'>ecs_action</a></td>
+                           <td><a class='struct' href='struct.ECSError.html'
+                                  title='ecs_client::error::ECSError'>ECSError</a></td>
                            <td class='docblock short'>
-                                <p>This module contains types which are useful for describing actions that the ECSClient
-can perform on your behalf.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='list_clusters/index.html'
-                                  title='ecs_client::action::list_clusters'>list_clusters</a></td>
-                           <td class='docblock short'>
-                                <p>Defines request and response types for a ListClusters action.</p>
+                                <p>A general ECSError.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

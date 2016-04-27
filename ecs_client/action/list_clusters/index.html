@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `action` mod in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, action">
+    <meta name="description" content="API documentation for the Rust `list_clusters` mod in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, list_clusters">
 
-    <title>ecs_client::action - Rust</title>
+    <title>ecs_client::action::list_clusters - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
     
 
     
@@ -28,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'action', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../../index.html'>ecs_client</a>::<wbr><a href='../index.html'>action</a></p><script>window.sidebarCurrent = {name: 'list_clusters', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,28 +43,30 @@
     </nav>
 
     <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>action</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>ecs_client</a>::<wbr><a href='../index.html'>action</a>::<wbr><a class='mod' href=''>list_clusters</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-116' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#146-473' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This module defines request and response types for the various actions supported by ECS.</p>
+               </span><a id='src-143' class='srclink' href='../../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#177-472' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Defines request and response types for a ListClusters action.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use action::ecs_action::{<a class='trait' href='../../../ecs_client/action/ecs_action/trait.ECSRequest.html' title='ecs_client::action::ecs_action::ECSRequest'>ECSRequest</a>, <a class='trait' href='../../../ecs_client/action/ecs_action/trait.ECSResponse.html' title='ecs_client::action::ecs_action::ECSResponse'>ECSResponse</a>};</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='ecs_action/index.html'
-                                  title='ecs_client::action::ecs_action'>ecs_action</a></td>
+                           <td><a class='struct' href='struct.ListClustersRequest.html'
+                                  title='ecs_client::action::list_clusters::ListClustersRequest'>ListClustersRequest</a></td>
                            <td class='docblock short'>
-                                <p>This module contains types which are useful for describing actions that the ECSClient
-can perform on your behalf.</p>
+                                <p>A ListClusters request type which can be serialized to json and set as the body of an HTTP
+request.  Construct one of these and pass it to your client in the ecs_client::list_clusters()
+function.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='list_clusters/index.html'
-                                  title='ecs_client::action::list_clusters'>list_clusters</a></td>
+                           <td><a class='struct' href='struct.ListClustersResponse.html'
+                                  title='ecs_client::action::list_clusters::ListClustersResponse'>ListClustersResponse</a></td>
                            <td class='docblock short'>
-                                <p>Defines request and response types for a ListClusters action.</p>
+                                <p>A ListClusters response type which can be deserialized from the body of an HTTP response. If
+the request was successful, one of these will be returned from ecs_client::list_clusters().</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>
@@ -118,13 +120,13 @@ can perform on your behalf.</p>
     
 
     <script>
-        window.rootPath = "../../";
+        window.rootPath = "../../../";
         window.currentCrate = "ecs_client";
         window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
-    <script src="../../main.js"></script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
     
-    <script defer src="../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

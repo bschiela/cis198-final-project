@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-0' class='srclink' href='../src/ecs_client/src/lib.rs.html#1-14' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-0' class='srclink' href='../src/ecs_client/lib.rs.html#1-14' title='goto source code'>[src]</a></span></h1>
 <h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>extern crate std as std;</code></td></tr><tr><td><code>extern crate serde;</code></td></tr><tr><td><code>extern crate serde_json;</code></td></tr><tr><td><code>extern crate hyper;</code></td></tr><tr><td><code>extern crate time;</code></td></tr><tr><td><code>extern crate sodiumoxide;</code></td></tr><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
@@ -55,7 +55,7 @@
                            <td><a class='mod' href='action/index.html'
                                   title='ecs_client::action'>action</a></td>
                            <td class='docblock short'>
-                                <p>An enum defining the possible actions which can be sent to Amazon ECS.</p>
+                                <p>This module defines request and response types for the various actions supported by ECS.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -73,18 +73,19 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='mod' href='error/index.html'
+                                  title='ecs_client::error'>error</a></td>
+                           <td class='docblock short'>
+                                <p>This module defines Error types that may be returned when sending a request to Amazon ECS.
+Note that the ECS API reference defines &#39;Exception&#39; types, but we map each Amazon ECS 
+Exception to a Rust Error.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='mod' href='region/index.html'
                                   title='ecs_client::region'>region</a></td>
                            <td class='docblock short'>
                                 <p>An enum defining the regions in which Amazon ECS is supported.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='request/index.html'
-                                  title='ecs_client::request'>request</a></td>
-                           <td class='docblock short'>
-                                <p>This module defines request types which can be serialized to json and set as the payload of an
-HTTP request body.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>

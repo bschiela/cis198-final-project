@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["ECSAction",""]]});
+initSidebarItems({"mod":[["ecs_action","This module contains types which are useful for describing actions that the ECSClient can perform on your behalf."],["list_clusters","Defines request and response types for a ListClusters action."]]});

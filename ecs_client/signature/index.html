@@ -47,20 +47,90 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-230' class='srclink' href='../../src/ecs_client/media/sf_rust/project/target/debug/build/ecs_client-8e0ed6fefc86c107/out/lib.rs.html#252-355' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-367' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#479-796' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>This module implements Amazon&#39;s Signature Version 4 Signing Algorithm which is required in
 order to make authenticated requests to any Amazon Web Service.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use hyper::header::{<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, <a class='trait' href='https://hyperium.github.io/hyper/hyper/header/trait.Header.html' title='hyper::header::Header'>Header</a>, <a class='trait' href='https://hyperium.github.io/hyper/hyper/header/trait.HeaderFormat.html' title='hyper::header::HeaderFormat'>HeaderFormat</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/host/struct.Host.html' title='hyper::header::common::host::Host'>Host</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/accept_encoding/struct.AcceptEncoding.html' title='hyper::header::common::accept_encoding::AcceptEncoding'>AcceptEncoding</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_type/struct.ContentType.html' title='hyper::header::common::content_type::ContentType'>ContentType</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_length/struct.ContentLength.html' title='hyper::header::common::content_length::ContentLength'>ContentLength</a>};</code></td></tr><tr><td><code>use custom_headers::{<a class='struct' href='../../ecs_client/custom_headers/struct.XAmzTarget.html' title='ecs_client::custom_headers::XAmzTarget'>XAmzTarget</a>, <a class='struct' href='../../ecs_client/custom_headers/struct.XAmzDate.html' title='ecs_client::custom_headers::XAmzDate'>XAmzDate</a>};</code></td></tr><tr><td><code>use sodiumoxide::crypto::hash::sha256;</code></td></tr><tr><td><code>use std::fmt::{<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Write.html' title='core::fmt::Write'>Write</a>, <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a>};</code></td></tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use hyper::header::{<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, <a class='trait' href='https://hyperium.github.io/hyper/hyper/header/trait.Header.html' title='hyper::header::Header'>Header</a>, <a class='trait' href='https://hyperium.github.io/hyper/hyper/header/trait.HeaderFormat.html' title='hyper::header::HeaderFormat'>HeaderFormat</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/host/struct.Host.html' title='hyper::header::common::host::Host'>Host</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/accept_encoding/struct.AcceptEncoding.html' title='hyper::header::common::accept_encoding::AcceptEncoding'>AcceptEncoding</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_type/struct.ContentType.html' title='hyper::header::common::content_type::ContentType'>ContentType</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_length/struct.ContentLength.html' title='hyper::header::common::content_length::ContentLength'>ContentLength</a>};</code></td></tr><tr><td><code>use custom_headers::{<a class='struct' href='../../ecs_client/custom_headers/struct.XAmzTarget.html' title='ecs_client::custom_headers::XAmzTarget'>XAmzTarget</a>, <a class='struct' href='../../ecs_client/custom_headers/struct.XAmzDate.html' title='ecs_client::custom_headers::XAmzDate'>XAmzDate</a>};</code></td></tr><tr><td><code>use sodiumoxide::crypto::hash::sha256;</code></td></tr><tr><td><code>use sodiumoxide::crypto::auth::hmacsha256::State;</code></td></tr><tr><td><code>use region::<a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>;</code></td></tr><tr><td><code>use std::<a class='mod' href='https://doc.rust-lang.org/nightly/std/env/index.html' title='std::env'>env</a>;</code></td></tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.AWS4.html'
+                                  title='ecs_client::signature::AWS4'>AWS4</a></td>
+                           <td class='docblock short'>
+                                <p>A String constant used in deriving the signing key.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.AWS4_REQUEST.html'
+                                  title='ecs_client::signature::AWS4_REQUEST'>AWS4_REQUEST</a></td>
+                           <td class='docblock short'>
+                                <p>A String constant used in deriving the signing key.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.AWS_ACCESS_KEY_ID.html'
+                                  title='ecs_client::signature::AWS_ACCESS_KEY_ID'>AWS_ACCESS_KEY_ID</a></td>
+                           <td class='docblock short'>
+                                <p>The name of the environment variable in which your AWS Access Key ID should be stored.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.AWS_SECRET_ACCESS_KEY.html'
+                                  title='ecs_client::signature::AWS_SECRET_ACCESS_KEY'>AWS_SECRET_ACCESS_KEY</a></td>
+                           <td class='docblock short'>
+                                <p>The name of the environment variable in which your AWS Secret Access Key should be stored.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.CREDENTIAL.html'
+                                  title='ecs_client::signature::CREDENTIAL'>CREDENTIAL</a></td>
+                           <td class='docblock short'>
+                                <p>The Credential key string used in the Authorization header.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.SIGNATURE.html'
+                                  title='ecs_client::signature::SIGNATURE'>SIGNATURE</a></td>
+                           <td class='docblock short'>
+                                <p>The Signature key string used in the Authorization header.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.SIGNED_HEADERS.html'
+                                  title='ecs_client::signature::SIGNED_HEADERS'>SIGNED_HEADERS</a></td>
+                           <td class='docblock short'>
+                                <p>The SignedHeaders key string used in the Authorization header.</p>
+                           </td>
+                       </tr>
                        <tr class=' module-item'>
                            <td><a class='constant' href='constant.SIGNING_ALGORITHM.html'
                                   title='ecs_client::signature::SIGNING_ALGORITHM'>SIGNING_ALGORITHM</a></td>
                            <td class='docblock short'>
                                 <p>The default algorithm used for calculating the authentication signature.</p>
                            </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TERMINATION_STRING.html'
+                                  title='ecs_client::signature::TERMINATION_STRING'>TERMINATION_STRING</a></td>
+                           <td class='docblock short'>
+                                <p>The termination string used in the credential scope value.</p>
+                           </td>
                        </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.build_auth_header.html'
+                                  title='ecs_client::signature::build_auth_header'>build_auth_header</a></td>
+                           <td class='docblock short'>
+                                <p>Builds the Authorization HTTP header with all the required authentication information
+prescribed in <a href="http://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html">http://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html</a> .
+Starts with the Signing Algorithm used, followed by a &#39;Credential=&#39; key field, followed by your
+AWS Access Key ID (which is sourced from the environment variable AWS_ACCESS_KEY_ID), followed
+by the credential scope created during the signing process, followed by a comma, followed by
+a &#39;SignedHeaders=&#39; key string with the signed_headers from the signing process following as
+the field, followed by the &#39;Signature=&#39; key string followed by the signature calculated during
+the signing process!</p>
+                           </td>
+                       </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.build_canonical_request.html'
                                   title='ecs_client::signature::build_canonical_request'>build_canonical_request</a></td>
@@ -71,7 +141,31 @@ The canonical request contains the HTTP headers with lowercase names followed by
 value, with consecutive spaces converted to single spaces.  The headers must appear in
 order sorted by character code in lowercase, followed by a list of headers included in the
 signed request, followed by SHA256-hashed body.  The entire request is then hashed again
-and returned as a String.</p>
+and returned in a (String, String)=(canonical_request, signed_headers) tuple so that the
+signed_headers value used during the signing process can be built into the Authorization
+HTTP header.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.build_credential_scope.html'
+                                  title='ecs_client::signature::build_credential_scope'>build_credential_scope</a></td>
+                           <td class='docblock short'>
+                                <p>Builds the Credential Scope String, which is the date portion of the XAmzDate header,
+followed by the region, followed by the service abbreviation, followed by the termination
+string &quot;aws4_request&quot;, (each separated by a &quot;/&quot; character), followed by a newline character.
+For example:
+20160421/us-east-1/ecs/aws4_request\n</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.build_string_to_sign.html'
+                                  title='ecs_client::signature::build_string_to_sign'>build_string_to_sign</a></td>
+                           <td class='docblock short'>
+                                <p>Builds the String To Sign according to the guidelines at
+<a href="http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html">http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html</a> .
+The String To Sign is used with a derived signing key to calculate the signature.
+Returns a tuple containing (string_to_sign, credential_scope) so that credential scope value
+can be reused in the Authorization HTTP header.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -79,7 +173,19 @@ and returned as a String.</p>
                                   title='ecs_client::signature::calculate_signature'>calculate_signature</a></td>
                            <td class='docblock short'>
                                 <p>Calculates the Version 4 Signature according to the guidelines listed at
-<a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html</a> .</p>
+<a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html</a> .
+Returns the (signature, credential_scope, signed_headers) in a triple-tuple so that
+these values can be used to construct the Authorization HTTP header.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.derive_signing_key.html'
+                                  title='ecs_client::signature::derive_signing_key'>derive_signing_key</a></td>
+                           <td class='docblock short'>
+                                <p>Derives the signing key from your AWS secret access key, the date of your request, the service
+name, and the region the request is being sent to.  AWS credentials are sourced from
+environment variables.  Your AWS secret access key must be stored in an environment variable
+called AWS_SECRET_ACCESS_KEY.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -92,11 +198,35 @@ converted to single spaces.  A newline character terminates the String.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='fn' href='fn.get_from_environment.html'
+                                  title='ecs_client::signature::get_from_environment'>get_from_environment</a></td>
+                           <td class='docblock short'>
+                                <p>Gets the environment variable env_var_name from your current environment.  This is used to get
+your AWS Access Key ID from the AWS_ACCESS_KEY_ID environment variable and your AWS Secret 
+Key ID from the AWS_SECRET_KEY_ID environment variable.  If these variables aren&#39;t set, the
+client will panic.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='fn' href='fn.hash_to_hex.html'
                                   title='ecs_client::signature::hash_to_hex'>hash_to_hex</a></td>
                            <td class='docblock short'>
                                 <p>Hashes the input &amp;str using SHA256, and converts the resulting digest to a lowercase
 hexadecimal String.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.hex_encode.html'
+                                  title='ecs_client::signature::hex_encode'>hex_encode</a></td>
+                           <td class='docblock short'>
+                                <p>Encodes the input byte slice as a lowercase hexadecimal value.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.sign.html'
+                                  title='ecs_client::signature::sign'>sign</a></td>
+                           <td class='docblock short'>
+                                <p>Signs the &#39;string to sign&#39; and returns the calculated signature.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

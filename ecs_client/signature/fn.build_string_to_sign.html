@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `action` mod in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, action">
+    <meta name="description" content="API documentation for the Rust `build_string_to_sign` fn in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, build_string_to_sign">
 
-    <title>ecs_client::action - Rust</title>
+    <title>ecs_client::signature::build_string_to_sign - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -28,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'action', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a></p><script>window.sidebarCurrent = {name: 'build_string_to_sign', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,31 +42,18 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>action</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a>::<wbr><a class='fn' href=''>build_string_to_sign</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-116' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#146-473' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This module defines request and response types for the various actions supported by ECS.</p>
-</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='ecs_action/index.html'
-                                  title='ecs_client::action::ecs_action'>ecs_action</a></td>
-                           <td class='docblock short'>
-                                <p>This module contains types which are useful for describing actions that the ECSClient
-can perform on your behalf.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='list_clusters/index.html'
-                                  title='ecs_client::action::list_clusters'>list_clusters</a></td>
-                           <td class='docblock short'>
-                                <p>Defines request and response types for a ListClusters action.</p>
-                           </td>
-                       </tr></table></section>
+               </span><a id='src-438' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#649-664' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>fn build_string_to_sign(headers: &amp;<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, region: <a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>, serv_abbrev: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, hashed_canon_req: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></pre><div class='docblock'><p>Builds the String To Sign according to the guidelines at
+<a href="http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html">http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html</a> .
+The String To Sign is used with a derived signing key to calculate the signature.
+Returns a tuple containing (string_to_sign, credential_scope) so that credential scope value
+can be reused in the Authorization HTTP header.</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
