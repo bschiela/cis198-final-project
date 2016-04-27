@@ -33,7 +33,7 @@ pub struct ECSClient {
 // TODO provide code examples of how to use client
 impl ECSClient {
     /// Creates a new ECSClient for the specified Region.
-    pub fn new(region: Region) -> ECSClient {
+    pub fn for_region(region: Region) -> ECSClient {
         ECSClient {
             region: region,
             client: hyper::Client::new()
