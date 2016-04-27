@@ -14,20 +14,47 @@ const SIGNING_ALGORITHM: &'static str = "AWS4-HMAC-SHA256";
 const TERMINATION_STRING: &'static str = "aws4_request";
 /// The name of the environment variable in which your AWS Secret Access Key should be stored.
 const AWS_SECRET_ACCESS_KEY: &'static str = "AWS_SECRET_ACCESS_KEY";
+/// The name of the environment variable in which your AWS Access Key ID should be stored.
+const AWS_ACCESS_KEY_ID: &'static str = "AWS_ACCESS_KEY_ID";
 /// A String constant used in deriving the signing key.
 const AWS4: &'static str = "AWS4";
 /// A String constant used in deriving the signing key.
 const AWS4_REQUEST: &'static str = "aws4_request";
+/// The Credential key string used in the Authorization header.
+const CREDENTIAL: &'static str = "Credential";
+/// The SignedHeaders key string used in the Authorization header.
+const SIGNED_HEADERS: &'static str = "SignedHeaders";
+/// The Signature key string used in the Authorization header.
+const Signature: &'static str = "Signature";
+
+/// Builds the Authorization HTTP header with all the required authentication information
+/// prescribed in http://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html .
+/// Starts with the Signing Algorithm used, followed by a 'Credential=' key field, followed by your
+/// AWS Access Key ID (which is sourced from the environment variable AWS_ACCESS_KEY_ID), followed
+/// by the credential scope created during the signing process, followed by a comma, followed by
+/// a 'SignedHeaders=' key string with the signed_headers from the signing process following as
+/// the field, followed by the 'Signature=' key string followed by the signature calculated during
+/// the signing process!
+pub fn build_auth_header(headers: &Headers, body: &str, region: Region, serv_abbrev: &str) -> String {
+    let (signature, credential_scope, signed_headers) = calculate_signature(headers, body, region, serv_abbrev);
+    unimplemented!()
+
+}
 
 /// Calculates the Version 4 Signature according to the guidelines listed at
 /// http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html .
-pub fn calculate_signature(headers: &Headers, body: &str, region: Region, serv_abbrev: &str) -> String {
-    let canonical_request = build_canonical_request(headers, body);
+/// Returns the (signature, credential_scope, signed_headers) in a triple-tuple so that
+/// these values can be used to construct the Authorization HTTP header.
+pub fn calculate_signature(headers: &Headers,
+                           body: &str,
+                           region: Region,
+                           serv_abbrev: &str) -> (String, String, String) {
+    let (canonical_request, signed_headers) = build_canonical_request(headers, body);
     let hashed_canonical_request = hash_to_hex(&canonical_request);
-    let string_to_sign = build_string_to_sign(headers, region, serv_abbrev, &hashed_canonical_request);
+    let (string_to_sign, credential_scope) = build_string_to_sign(headers, region, serv_abbrev, &hashed_canonical_request);
     let signing_key = derive_signing_key(headers, region, serv_abbrev);
     let signature = sign(&signing_key, &string_to_sign);
-    signature
+    (signature, credential_scope, signed_headers)
 }
 
 
@@ -37,8 +64,10 @@ pub fn calculate_signature(headers: &Headers, body: &str, region: Region, serv_a
 /// value, with consecutive spaces converted to single spaces.  The headers must appear in
 /// order sorted by character code in lowercase, followed by a list of headers included in the
 /// signed request, followed by SHA256-hashed body.  The entire request is then hashed again
-/// and returned as a String.
-fn build_canonical_request(headers: &Headers, body: &str) -> String {
+/// and returned in a (String, String)=(canonical_request, signed_headers) tuple so that the
+/// signed_headers value used during the signing process can be built into the Authorization
+/// HTTP header.
+fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     let mut canon_req = String::from("POST\n");
     let mut signed_headers = String::new();
     canon_req.push_str("/\n"); // canonical URI (empty)
@@ -100,7 +129,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> String {
 
     // add hashed payload
     canon_req.push_str(&self::hash_to_hex(body));
-    canon_req
+    (canon_req, signed_headers)
 }
 
 /// Formats a single header according to the canonical format.  Header names must appear in
@@ -141,10 +170,12 @@ fn hex_encode(digest: &[u8; 32]) -> String {
 /// Builds the String To Sign according to the guidelines at
 /// http://docs.aws.amazon.com/general/latest/gr/sigv4-create-string-to-sign.html .
 /// The String To Sign is used with a derived signing key to calculate the signature.
+/// Returns a tuple containing (string_to_sign, credential_scope) so that credential scope value
+/// can be reused in the Authorization HTTP header.
 fn build_string_to_sign(headers: &Headers,
                         region: Region,
                         serv_abbrev: &str,
-                        hashed_canon_req: &str) -> String {
+                        hashed_canon_req: &str) -> (String, String) {
     // start with signing algorithm
     let mut string_to_sign = String::from(SIGNING_ALGORITHM);
     string_to_sign.push_str("\n");
@@ -154,10 +185,11 @@ fn build_string_to_sign(headers: &Headers,
     string_to_sign.push_str(x_amz_date_val);
     string_to_sign.push_str("\n");
     // followed by credential scope
-    string_to_sign.push_str(&build_credential_scope(x_amz_date_val, region, serv_abbrev));
+    let credential_scope = build_credential_scope(x_amz_date_val, region, serv_abbrev);
+    string_to_sign.push_str(&credential_scope);
     // followed by hashed canonical request
     string_to_sign.push_str(hashed_canon_req);
-    string_to_sign
+    (string_to_sign, credential_scope)
 }
 
 /// Builds the Credential Scope String, which is the date portion of the XAmzDate header,
@@ -183,7 +215,7 @@ fn build_credential_scope(datetime: &str, region: Region, serv_abbrev: &str) -> 
 /// called AWS_SECRET_ACCESS_KEY.
 fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [u8; 32] {
     let mut init_key = String::from(AWS4);
-    init_key.push_str(&get_aws_secret_access_key());
+    init_key.push_str(&get_from_environment(AWS_SECRET_ACCESS_KEY));
     let date: &XAmzDate = headers.get().unwrap();
     let date_val = date.0.split("T").nth(0).unwrap(); // use only the date portion
     // derive the key
@@ -213,20 +245,24 @@ fn derive_signing_key(headers: &Headers, region: Region, serv_abbrev: &str) -> [
     signing_key.0
 }
 
-/// Gets your AWS Secret Access Key from the environment variable AWS_SECRET_ACCESS_KEY.
-fn get_aws_secret_access_key() -> String {
-    match env::var(AWS_SECRET_ACCESS_KEY) {
+/// Gets the environment variable env_var_name from your current environment.  This is used to get
+/// your AWS Access Key ID from the AWS_ACCESS_KEY_ID environment variable and your AWS Secret 
+/// Key ID from the AWS_SECRET_KEY_ID environment variable.  If these variables aren't set, the
+/// client will panic.
+fn get_from_environment(env_var_name: &str) -> String {
+    match env::var(env_var_name) {
         Ok(val) => {
             if val == "" {
-                panic!("Your AWS Secret Access Key must be stored in the environment variable called AWS_SECRET_ACCESS_KEY.\n
-                Try: \n $ export AWS_SECRET_ACCESS_KEY=\"yoursecretaccesskey\"\n");
+                panic!("Your AWS Secret Access Key and AWS Access Key ID must be stored in the environment variables called AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID, respectively..\n
+                Try: \n $ export AWS_SECRET_ACCESS_KEY=\"your_secret_access_key\"\n\
+                        $ export AWS_ACCESS_KEY_ID=\"your_access_key_id\"\n");
             } else {
                 val
             }
         }
         Err(e) => {
-            println!("Couldn't interpret {}: {}", AWS_SECRET_ACCESS_KEY, e);
-            panic!("Couldn't obtain AWS Secret Access Key from environment!");
+            println!("Couldn't interpret {}: {}", env_var_name, e);
+            panic!("Couldn't obtain Credentials from environment!");
         }
     }
 }
