@@ -45,6 +45,7 @@ pub fn build_auth_header(headers: &Headers, body: &str, region: Region, serv_abb
     auth_header.push_str(&get_from_environment(AWS_ACCESS_KEY_ID));
     auth_header.push_str("/");
     auth_header.push_str(&credential_scope);
+    println!("CREDENTIAL SCOPE!! {}", credential_scope);
     auth_header.push_str(", ");
 
     auth_header.push_str(SIGNED_HEADERS);
