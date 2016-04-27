@@ -39,10 +39,35 @@ impl ECSResponse for ListClustersResponse {}
 
 /// Implements some convenience methods for building a ListClustersRequest.
 impl ListClustersRequest {
+    /// Creates a default ListClustersRequest with no field values.
     pub fn new() -> Self {
         ListClustersRequest {
             maxResults: None,
             nextToken: None,
+        }
+    }
+
+    /// Creates a ListClustersRequest with maxResults set but no nextToken.
+    pub fn with_max_results(max_results: u8) -> Self {
+        ListClustersRequest {
+            maxResults: Some(max_results),
+            nextToken: None,
+        }
+    }
+
+    /// Creates a ListClustersRequest with nextToken set but no maxResults.
+    pub fn with_next_token(next_token: String) -> Self {
+        ListClustersRequest {
+            maxResults: None,
+            nextToken: Some(next_token),
+        }
+    }
+
+    /// Creates a ListClustersRequest with all fields set.
+    pub fn with_all(max_results: u8, next_token: String) -> Self {
+        ListClustersRequest {
+            maxResults: Some(max_results),
+            nextToken: Some(next_token),
         }
     }
 }
