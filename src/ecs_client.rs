@@ -4,14 +4,14 @@ use region::Region;
 use action::*;
 use custom_headers::{XAmzTarget, XAmzDate};
 use signature;
+use error;
 
 use hyper;
 use hyper::header::{Headers, Host, AcceptEncoding, Encoding, qitem, ContentType, ContentLength, Authorization};
 use hyper::mime::{Mime, TopLevel, SubLevel};
-
 use serde_json;
-
 use time;
+use std::result;
 
 /// The service abbreviation string for Amazon ECS.
 const SERVICE_ABBREVIATION: &'static str = "ecs";
@@ -19,6 +19,9 @@ const SERVICE_ABBREVIATION: &'static str = "ecs";
 const AMZ_SUBLEVEL_CONTENT_TYPE: &'static str = "x-amz-json-1.1";
 /// The ECS API version this request is meant for.
 const ECS_API_VERSION: &'static str = "AmazonEC2ContainerServiceV20141113";
+
+/// A type alias to set the default error as an ECSError.
+type Result<T> = result::Result<T, error::ECSError>;
 
 #[derive(Debug)]
 pub struct ECSClient {
