@@ -91,18 +91,18 @@ impl ECSClient {
             hostname: self.build_hostname(),
             port: None,
         });
-        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
-        headers.set(XAmzTarget(self.build_x_amz_target(action)));
+//        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
+//        headers.set(XAmzTarget(self.build_x_amz_target(action)));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
-        headers.set(ContentType(
-                Mime(
-                    TopLevel::Application,
-                    SubLevel::Ext(String::from(AMZ_SUBLEVEL_CONTENT_TYPE)),
-                    vec![],
-                )
-            )
-        );
-        headers.set(ContentLength(content_length));
+//        headers.set(ContentType(
+//                Mime(
+//                    TopLevel::Application,
+//                    SubLevel::Ext(String::from(AMZ_SUBLEVEL_CONTENT_TYPE)),
+//                    vec![],
+//                )
+//            )
+//        );
+//        headers.set(ContentLength(content_length));
         headers
     }
 

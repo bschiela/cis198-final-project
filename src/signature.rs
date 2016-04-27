@@ -94,7 +94,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
 
     // CANONICAL HEADERS
     // must be sorted lexicographically by lowercase header name
-    let accept_encoding: &AcceptEncoding = headers.get().unwrap();
+/*    let accept_encoding: &AcceptEncoding = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             AcceptEncoding::header_name(),
             &(accept_encoding as &(HeaderFormat + Send + Sync)).to_string()
@@ -117,7 +117,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&ContentType::header_name().to_lowercase());
     signed_headers.push_str(";");
-
+*/
     let host: &Host = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             Host::header_name(),
@@ -133,7 +133,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&XAmzDate::header_name().to_lowercase());
     signed_headers.push_str(";");
-
+/*
     let x_amz_target: &XAmzTarget = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             XAmzTarget::header_name(),
@@ -141,7 +141,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&XAmzTarget::header_name().to_lowercase());
     signed_headers.push_str("\n");
-
+*/
     // add list of signed headers in body
     canon_req.push_str("\n");
     canon_req.push_str(&signed_headers);
