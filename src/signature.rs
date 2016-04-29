@@ -272,9 +272,9 @@ fn get_from_environment(env_var_name: &str) -> String {
     match env::var(env_var_name) {
         Ok(val) => {
             if val == "" {
-                println!("Your AWS Secret Access Key and AWS Access Key ID must be stored in the\
-                    environment variables called AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID,\
-                    respectively.\nTry: \n $ export AWS_SECRET_ACCESS_KEY=\"your_secret_access_key\"\n\
+                println!("Your AWS Secret Access Key and AWS Access Key ID must be stored in the \
+                    environment variables called AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID, \
+                    respectively.\nTry:\n$ export AWS_SECRET_ACCESS_KEY=\"your_secret_access_key\"\n\
                     $ export AWS_ACCESS_KEY_ID=\"your_access_key_id\"\n");
                 panic!("Couldn't obtain AWS credentials from environment!");
             } else {
@@ -283,9 +283,9 @@ fn get_from_environment(env_var_name: &str) -> String {
         }
         Err(e) => {
             println!("Couldn't interpret {}: {}", env_var_name, e);
-            println!("Your AWS Secret Access Key and AWS Access Key ID must be stored in the\
-                environment variables called AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID,\
-                respectively.\nTry: \n $ export AWS_SECRET_ACCESS_KEY=\"your_secret_access_key\"\n\
+            println!("Your AWS Secret Access Key and AWS Access Key ID must be stored in the \
+                environment variables called AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID, \
+                respectively.\nTry:\n$ export AWS_SECRET_ACCESS_KEY=\"your_secret_access_key\"\n\
                 $ export AWS_ACCESS_KEY_ID=\"your_access_key_id\"\n");
             panic!("Couldn't obtain AWS credentials from environment!");
         }
