@@ -7,6 +7,6 @@
 pub struct ECSError {
     /// The status code that was returned with the HTTP response.
     status_code: u16,
-//    /// The error message that was returned with the HTTP response.
-//    message: String,
+    /// The error message that was returned with the HTTP response.
+    message: String,
 }

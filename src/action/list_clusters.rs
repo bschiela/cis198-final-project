@@ -14,9 +14,11 @@ pub struct ListClustersRequest {
     /// If omitted, defaults to 100.
     #[serde(skip_serializing_if="custom_ser::is_none")]
     maxResults: Option<u8>,
-    /// The value returned from a previous paginated request. 
-    /// Pagination continues from the end of the previous results that returned the value.
-    /// The value returned is null if there are no more results to return.
+    /// A value returned by the previous request indicating where to begin the next page of paginated
+    /// output.  This value will be None if there are no more results to return.  Otherwise, this
+    /// value will hold Some(String) which can be used in a subsequent ListClustersRequest to
+    /// obtain the next page of paginated output, where the previous output exceeded 100 results
+    /// or the value indicated by maxResults in the ListClustersRequest.
     #[serde(skip_serializing_if="custom_ser::is_none")]
     nextToken: Option<String>,
 }
@@ -29,8 +31,11 @@ pub struct ListClustersResponse {
     /// The list of full Amazon Resource Name (ARN) entries for each cluster associated with your
     /// account.
     clusterArns: Vec<String>,
-    /// A token which can be included in a future ListClustersRequest to get the next page of
-    /// paginated output.  If there are no more results to return, this will be None.
+    /// A value returned by the previous request indicating where to begin the next page of paginated
+    /// output.  This value will be None if there are no more results to return.  Otherwise, this
+    /// value will hold Some(String) which can be used in a subsequent ListClustersRequest to
+    /// obtain the next page of paginated output, where the previous output exceeded 100 results
+    /// or the value indicated by maxResults in the ListClustersRequest.
     nextToken: Option<String>,
 }
 
@@ -77,10 +82,15 @@ impl ListClustersRequest {
 
 /// Implements some convenience methods for looking at values returned in a ListClustersResponse.
 impl ListClustersResponse {
+    /// Gets a reference to the Vec of Amazon Resource Name (ARN) Strings describing your Amazon
+    /// ECS Compute Clusters.
     pub fn get_cluster_arns(&self) -> &Vec<String> {
         &self.clusterArns
     }
 
+    /// Gets a reference to the nextToken value returned by the previous request.  This will
+    /// return &None of there are no more results to display, otherwise it will return Some(String)
+    /// which can be used in a subsequent request to get the next page of paginated output.
     pub fn get_next_token(&self) -> &Option<String> {
         &self.nextToken
     }
