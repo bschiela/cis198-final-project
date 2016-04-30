@@ -44,9 +44,26 @@ your behalf.
 
 
 ## Approximate time spent
+I spent about 50-60 hours coding for this project, and probably 20-30 hours reading
+documentation for hyper, libsodium, serde, Amazon AWS, Amazon IAM, Amazon EC2 and Amazon ECS.
 
 ## Accomplishments
-Libsodium binding and AWS SigV4 algorithm
+The Amazon Signature Version 4 Signing process ended up requiring the bulk of the work for this
+project.  I was able to install and link [libsodium](https://github.com/jedisct1/libsodium), a
+major crytpography and authentication library, as an external build dependency and use the Rust
+bindings provided by [Sodiumoxide](https://github.com/dnaq/sodiumoxide) to access libsodium's
+crypto methods.  I was then able to implement the entire Signature Version 4 Signing algorithm
+used to authenticate requests to Amazon Web Services, as outlined [here](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+The process involves
+1) building a 'canonical request' string with all request headers in a
+particular order and format and with the hashed body payload
+2) hashing the canonical request and building a 'string to sign' containing the signing algorithm,
+date, and credential scope,
+3) deriving a signing key from the user's credential and signing the string to sign from part 2),
+and 4) building an Authentication header string containing the signature to be used in the HTTP
+request.
+The module `signature.rs` implements this signing algorithm and passes the unit tests provided
+in the Amazon Signature Version 4 Signing Process Guide.
 
 ## Components, structure, design decisions
 Tried to decouple Client and Request but too tightly coupled
