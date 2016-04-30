@@ -47,8 +47,41 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-9' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#1-113' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</p>
+               </span><a id='src-9' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#1-142' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.
+The client sources your AWS credentials from the environment in which it is running.  You&#39;ll
+need to create an AWS IAM user and add them to a security group with proper permissions, as
+outlined here: <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/get-set-up-for-amazon-ecs.html">http://docs.aws.amazon.com/AmazonECS/latest/developerguide/get-set-up-for-amazon-ecs.html</a> .
+Once you&#39;ve created an IAM user, you can generate security credentials by going to the IAM
+console, clicking on Users in the navigation pane, selecting your user from the list, choosing
+the Security Credentials tab, and clicking Create Access Key.  This will generate an AWS access
+key ID and an AWS secret access key.  Store these in the environment in which your client will
+be running by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, respectively, as such:</p>
+
+<pre><code class="language-text">$ export AWS_ACCESS_KEY_ID=&quot;your_access_key_id&quot;
+$ export AWS_SECRET_ACCESS_KEY=&quot;your_secret_access_key&quot;
+</code></pre>
+
+<p>With these credentials created and stored appropriately, the ECSClient should be able to make
+requests to Amazon ECS on your behalf.  Simply create an ECSClient, build a request, and call
+the relevent API action on the client.  For example (note that the code below should panic if
+no security credentials have been stored in the environment):</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>ecs_client</span>;
+
+<span class='kw'>use</span> <span class='ident'>ecs_client</span>::<span class='ident'>ecs_client</span>::<span class='ident'>ECSClient</span>;
+<span class='kw'>use</span> <span class='ident'>ecs_client</span>::<span class='ident'>region</span>::<span class='ident'>Region</span>;
+<span class='kw'>use</span> <span class='ident'>ecs_client</span>::<span class='ident'>action</span>::<span class='op'>*</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>client</span> <span class='op'>=</span> <span class='ident'>ECSClient</span>::<span class='ident'>for_region</span>(<span class='ident'>Region</span>::<span class='ident'>USWest2</span>);
+    <span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>list_clusters</span>::<span class='ident'>ListClustersRequest</span>::<span class='ident'>new</span>();
+    <span class='kw'>let</span> <span class='ident'>response</span>: <span class='ident'>list_clusters</span>::<span class='ident'>ListClustersResponse</span> <span class='op'>=</span> <span class='ident'>ecs_client</span>.<span class='ident'>list_clusters</span>(<span class='ident'>request</span>);
+    <span class='kw'>for</span> <span class='ident'>cluster_arn</span> <span class='kw'>in</span> <span class='ident'>response</span>.<span class='ident'>get_cluster_arns</span>() {
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>cluster_arn</span>);
+    }
+}</pre>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>use std::prelude::v1::*;</code></td></tr><tr><td><code>use region::<a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>;</code></td></tr><tr><td><code>use <a class='mod' href='../../ecs_client/action/index.html' title='ecs_client::action'>action</a>::*;</code></td></tr><tr><td><code>use custom_headers::{<a class='struct' href='../../ecs_client/custom_headers/struct.XAmzTarget.html' title='ecs_client::custom_headers::XAmzTarget'>XAmzTarget</a>, <a class='struct' href='../../ecs_client/custom_headers/struct.XAmzDate.html' title='ecs_client::custom_headers::XAmzDate'>XAmzDate</a>};</code></td></tr><tr><td><code>use <a class='mod' href='../../ecs_client/signature/index.html' title='ecs_client::signature'>signature</a>;</code></td></tr><tr><td><code>use <a class='mod' href='../../ecs_client/error/index.html' title='ecs_client::error'>error</a>;</code></td></tr><tr><td><code>use <a class='mod' href='https://hyperium.github.io/hyper/hyper/index.html' title='hyper'>hyper</a>;</code></td></tr><tr><td><code>use hyper::header::{<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/host/struct.Host.html' title='hyper::header::common::host::Host'>Host</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/accept_encoding/struct.AcceptEncoding.html' title='hyper::header::common::accept_encoding::AcceptEncoding'>AcceptEncoding</a>, <a class='enum' href='https://hyperium.github.io/hyper/hyper/header/shared/encoding/enum.Encoding.html' title='hyper::header::shared::encoding::Encoding'>Encoding</a>, <a class='fn' href='https://hyperium.github.io/hyper/hyper/header/shared/quality_item/fn.qitem.html' title='hyper::header::shared::quality_item::qitem'>qitem</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_type/struct.ContentType.html' title='hyper::header::common::content_type::ContentType'>ContentType</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/content_length/struct.ContentLength.html' title='hyper::header::common::content_length::ContentLength'>ContentLength</a>, <a class='struct' href='https://hyperium.github.io/hyper/hyper/header/common/authorization/struct.Authorization.html' title='hyper::header::common::authorization::Authorization'>Authorization</a>};</code></td></tr><tr><td><code>use hyper::mime::{<a class='struct' href='https://hyperium.github.io/mime.rs/mime/struct.Mime.html' title='mime::Mime'>Mime</a>, <a class='enum' href='https://hyperium.github.io/mime.rs/mime/enum.TopLevel.html' title='mime::TopLevel'>TopLevel</a>, <a class='enum' href='https://hyperium.github.io/mime.rs/mime/enum.SubLevel.html' title='mime::SubLevel'>SubLevel</a>};</code></td></tr><tr><td><code>use serde_json;</code></td></tr><tr><td><code>use <a class='mod' href='https://doc.rust-lang.org/time/time/index.html' title='time'>time</a>;</code></td></tr><tr><td><code>use std::<a class='mod' href='https://doc.rust-lang.org/nightly/core/result/index.html' title='core::result'>result</a>;</code></td></tr><tr><td><code>use std::io::<a class='trait' href='https://doc.rust-lang.org/nightly/std/io/trait.Read.html' title='std::io::Read'>Read</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>

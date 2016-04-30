@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `calculate_signature` fn in crate `ecs_client`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, calculate_signature">
+    <meta name="description" content="API documentation for the Rust `custom_ser` mod in crate `ecs_client`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, custom_ser">
 
-    <title>ecs_client::signature::calculate_signature - Rust</title>
+    <title>ecs_client::custom_ser - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -28,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a></p><script>window.sidebarCurrent = {name: 'calculate_signature', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>ecs_client</a></p><script>window.sidebarCurrent = {name: 'custom_ser', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,17 +42,23 @@
         </form>
     </nav>
 
-    <section id='main' class="content fn">
-<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>ecs_client</a>::<wbr><a href='index.html'>signature</a>::<wbr><a class='fn' href=''>calculate_signature</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ecs_client</a>::<wbr><a class='mod' href=''>custom_ser</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-405' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#616-628' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn calculate_signature(headers: &amp;<a class='struct' href='https://hyperium.github.io/hyper/hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>, body: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, region: <a class='enum' href='../../ecs_client/region/enum.Region.html' title='ecs_client::region::Region'>Region</a>, serv_abbrev: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></pre><div class='docblock'><p>Calculates the Version 4 Signature according to the guidelines listed at
-<a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html</a> .
-Returns the (signature, credential_scope, signed_headers) in a triple-tuple so that
-these values can be used to construct the Authorization HTTP header.</p>
-</div></section>
+               </span><a id='src-503' class='srclink' href='../../src/ecs_client/home/user/rust/project/target/debug/build/ecs_client-615153cc2887025e/out/lib.rs.html#862-865' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This module contains functions called by serde to customize serialization of ECSRequest types.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>use std::prelude::v1::*;</code></td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.is_none.html'
+                                  title='ecs_client::custom_ser::is_none'>is_none</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

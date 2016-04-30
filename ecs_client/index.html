@@ -66,10 +66,25 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='mod' href='custom_ser/index.html'
+                                  title='ecs_client::custom_ser'>custom_ser</a></td>
+                           <td class='docblock short'>
+                                <p>This module contains functions called by serde to customize serialization of ECSRequest types.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='mod' href='ecs_client/index.html'
                                   title='ecs_client::ecs_client'>ecs_client</a></td>
                            <td class='docblock short'>
-                                <p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.</p>
+                                <p>This module contains the ECSClient which can be used to interact with Amazon ECS&#39;s API.
+The client sources your AWS credentials from the environment in which it is running.  You&#39;ll
+need to create an AWS IAM user and add them to a security group with proper permissions, as
+outlined here: <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/get-set-up-for-amazon-ecs.html">http://docs.aws.amazon.com/AmazonECS/latest/developerguide/get-set-up-for-amazon-ecs.html</a> .
+Once you&#39;ve created an IAM user, you can generate security credentials by going to the IAM
+console, clicking on Users in the navigation pane, selecting your user from the list, choosing
+the Security Credentials tab, and clicking Create Access Key.  This will generate an AWS access
+key ID and an AWS secret access key.  Store these in the environment in which your client will
+be running by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, respectively, as such:</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
