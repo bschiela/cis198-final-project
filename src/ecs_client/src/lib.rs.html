@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `lib.rs`.">
+    <meta name="description" content="Source to the Rust file `src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
     
 
     
@@ -56,7 +56,81 @@
 <span id="12">12</span>
 <span id="13">13</span>
 <span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! This crate contains an ECSClient which can be used to interact with Amazon ECS&#39;s API.</span>
+<span class='doccomment'>//! The client sources your AWS credentials from the environment in which it is running.  You&#39;ll</span>
+<span class='doccomment'>//! need to create an AWS IAM user and add them to a security group with proper permissions, as</span>
+<span class='doccomment'>//! outlined here: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/get-set-up-for-amazon-ecs.html .</span>
+<span class='doccomment'>//! Once you&#39;ve created an IAM user, you can generate security credentials by going to the IAM</span>
+<span class='doccomment'>//! console, clicking on Users in the navigation pane, selecting your user from the list, choosing</span>
+<span class='doccomment'>//! the Security Credentials tab, and clicking Create Access Key.  This will generate an AWS access</span>
+<span class='doccomment'>//! key ID and an AWS secret access key.  Store these in the environment in which your client will</span>
+<span class='doccomment'>//! be running by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, respectively, as such:</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ```text</span>
+<span class='doccomment'>//! $ export AWS_ACCESS_KEY_ID=&quot;your_access_key_id&quot;</span>
+<span class='doccomment'>//! $ export AWS_SECRET_ACCESS_KEY=&quot;your_secret_access_key&quot;</span>
+<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! With these credentials created and stored appropriately, the ECSClient should be able to make</span>
+<span class='doccomment'>//! requests to Amazon ECS on your behalf.  Simply create an ECSClient, build a request, and call</span>
+<span class='doccomment'>//! the relevent API action on the client.  For example (note that the code below should panic if</span>
+<span class='doccomment'>//! no security credentials have been stored in the environment):</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ```should_panic</span>
+<span class='doccomment'>//! extern crate ecs_client;</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! use ecs_client::ecs_client::ECSClient;</span>
+<span class='doccomment'>//! use ecs_client::region::Region;</span>
+<span class='doccomment'>//! use ecs_client::action::*;</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! fn main() {</span>
+<span class='doccomment'>//!     let client = ECSClient::for_region(Region::USWest2);</span>
+<span class='doccomment'>//!     let request = list_clusters::ListClustersRequest::new();</span>
+<span class='doccomment'>//!     let response: list_clusters::ListClustersResponse = ecs_client.list_clusters(request);</span>
+<span class='doccomment'>//!     for cluster_arn in response.get_cluster_arns() {</span>
+<span class='doccomment'>//!         println!(&quot;{}&quot;, cluster_arn);</span>
+<span class='doccomment'>//!     }</span>
+<span class='doccomment'>//! }</span>
+<span class='doccomment'>//! ```</span>
+
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_macros&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>custom_derive</span>, <span class='ident'>plugin</span>))]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_macros&quot;</span>, <span class='ident'>plugin</span>(<span class='ident'>serde_macros</span>))]</span>
 
@@ -124,13 +198,13 @@
     
 
     <script>
-        window.rootPath = "../../";
+        window.rootPath = "../../../";
         window.currentCrate = "ecs_client";
         window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
-    <script src="../../main.js"></script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
     
-    <script defer src="../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>
