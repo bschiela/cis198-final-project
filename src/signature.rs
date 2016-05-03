@@ -101,7 +101,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&AcceptEncoding::header_name().to_lowercase());
     signed_headers.push_str(";");
-
+*/
     let content_length: &ContentLength = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             ContentLength::header_name(),
@@ -117,7 +117,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&ContentType::header_name().to_lowercase());
     signed_headers.push_str(";");
-*/
+
     let host: &Host = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             Host::header_name(),
