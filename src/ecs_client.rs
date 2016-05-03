@@ -69,9 +69,15 @@ impl ECSClient {
 
         println!("Sending request...\n{}", headers);
         println!("Request body...\n{}", body);
-        let response = req_builder.headers(headers).body(&body).send();
+        let mut response = req_builder.headers(headers).body(&body).send();
+        // TODO remove debug statements
         println!("Received response...\n{:?}", response);
-        response.unwrap()
+        let mut buff = String::new();
+        response.unwrap().read_to_string(&mut buff);
+        println!("Response body...\n{}", buff);
+        unimplemented!()
+        // TODO remove debug an uncomment below
+        // response.unwrap()
     }
 
     /// Builds the request URI based on the Region this client is currently configured to send
