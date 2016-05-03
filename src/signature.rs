@@ -133,7 +133,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&XAmzDate::header_name().to_lowercase());
     signed_headers.push_str(";");
-/*
+
     let x_amz_target: &XAmzTarget = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             XAmzTarget::header_name(),
@@ -141,7 +141,7 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     ));
     signed_headers.push_str(&XAmzTarget::header_name().to_lowercase());
     signed_headers.push_str("\n");
-*/
+
     // add list of signed headers in body
     canon_req.push_str("\n");
     canon_req.push_str(&signed_headers);

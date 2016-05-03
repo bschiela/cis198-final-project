@@ -91,7 +91,7 @@ impl ECSClient {
             port: None,
         });
 //        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
-//        headers.set(XAmzTarget(self.build_x_amz_target(action)));
+        headers.set(XAmzTarget(self.build_x_amz_target(action)));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
 //        headers.set(ContentType(
 //                Mime(
