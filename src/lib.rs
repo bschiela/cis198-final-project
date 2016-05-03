@@ -18,7 +18,7 @@
 //! the relevent API action on the client.  For example (note that the code below should panic if
 //! no security credentials have been stored in the environment):
 //!
-//! ```should_panic
+//! ```
 //! extern crate ecs_client;
 //!
 //! use ecs_client::ecs_client::ECSClient;
@@ -26,7 +26,7 @@
 //! use ecs_client::action::*;
 //!
 //! fn main() {
-//!     let client = ECSClient::for_region(Region::USWest2);
+//!     let ecs_client = ECSClient::for_region(Region::USWest2);
 //!     let request = list_clusters::ListClustersRequest::new();
 //!     let response: list_clusters::ListClustersResponse = ecs_client.list_clusters(request);
 //!     for cluster_arn in response.get_cluster_arns() {
