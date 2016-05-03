@@ -49,6 +49,7 @@ impl ECSClient {
         let mut response = self.sign_and_send(ecs_action::ECSAction::ListClusters, request);
         let mut response_body = String::new();
         response.read_to_string(&mut response_body).unwrap();
+        println!("Response body...\n{}", response_body);
         let list_clusters_response: list_clusters::ListClustersResponse = serde_json::from_str(&response_body).unwrap();
         list_clusters_response
     }
@@ -70,14 +71,8 @@ impl ECSClient {
         println!("Sending request...\n{}", headers);
         println!("Request body...\n{}", body);
         let mut response = req_builder.headers(headers).body(&body).send();
-        // TODO remove debug statements
         println!("Received response...\n{:?}", response);
-        let mut buff = String::new();
-        response.unwrap().read_to_string(&mut buff);
-        println!("Response body...\n{}", buff);
-        unimplemented!()
-        // TODO remove debug an uncomment below
-        // response.unwrap()
+        response.unwrap()
     }
 
     /// Builds the request URI based on the Region this client is currently configured to send

@@ -140,11 +140,11 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
             &(x_amz_target as &(HeaderFormat + Send + Sync)).to_string()
     ));
     signed_headers.push_str(&XAmzTarget::header_name().to_lowercase());
-    signed_headers.push_str("\n");
 
     // add list of signed headers in body
     canon_req.push_str("\n");
     canon_req.push_str(&signed_headers);
+    canon_req.push_str("\n");
 
     // add hashed payload
     canon_req.push_str(&self::hash_to_hex(body));
@@ -206,6 +206,7 @@ fn build_string_to_sign(headers: &Headers,
     // followed by credential scope
     let credential_scope = build_credential_scope(x_amz_date_val, region, serv_abbrev);
     string_to_sign.push_str(&credential_scope);
+    string_to_sign.push_str("\n");
     // followed by hashed canonical request
     string_to_sign.push_str(hashed_canon_req);
     (string_to_sign, credential_scope)
@@ -224,7 +225,6 @@ fn build_credential_scope(datetime: &str, region: Region, serv_abbrev: &str) -> 
     cred_scope.push_str(serv_abbrev);
     cred_scope.push_str("/");
     cred_scope.push_str(TERMINATION_STRING);
-    cred_scope.push_str("\n");
     cred_scope
 }
 
