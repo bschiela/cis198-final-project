@@ -70,7 +70,7 @@ impl ECSClient {
 
         println!("Sending request...\n{}", headers);
         println!("Request body...\n{}", body);
-        let mut response = req_builder.headers(headers).body(&body).send();
+        let response = req_builder.headers(headers).body(&body).send();
         println!("Received response...\n{:?}", response);
         response.unwrap()
     }
@@ -91,7 +91,7 @@ impl ECSClient {
             hostname: self.build_hostname(),
             port: None,
         });
-//        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
+        headers.set(AcceptEncoding(vec![qitem(Encoding::Identity)]));
         headers.set(XAmzTarget(self.build_x_amz_target(action)));
         headers.set(XAmzDate(time::strftime("%Y%m%dT%H%M%SZ", &time::now_utc()).unwrap()));
         headers.set(ContentType(

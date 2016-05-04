@@ -93,15 +93,15 @@ fn build_canonical_request(headers: &Headers, body: &str) -> (String, String) {
     canon_req.push_str("\n"); // canonical query string (empty)
 
     // CANONICAL HEADERS
-    // must be sorted lexicographically by lowercase header name
-/*    let accept_encoding: &AcceptEncoding = headers.get().unwrap();
+    // must be sorted by character code of lowercase header name
+    let accept_encoding: &AcceptEncoding = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             AcceptEncoding::header_name(),
             &(accept_encoding as &(HeaderFormat + Send + Sync)).to_string()
     ));
     signed_headers.push_str(&AcceptEncoding::header_name().to_lowercase());
     signed_headers.push_str(";");
-*/
+
     let content_length: &ContentLength = headers.get().unwrap();
     canon_req.push_str(&self::fmt_canonical_header(
             ContentLength::header_name(),
