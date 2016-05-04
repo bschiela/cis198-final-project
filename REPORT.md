@@ -102,7 +102,7 @@ to `sign_and_send()` and deserialize the response to the proper `ECSResponse` ty
 data types is also very easy with `serde`.  The [ECS data types](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_Types.html)'s
 descriptions have straightforward translations into Rust structs and simply need to be marked with
 a `#[derive(Serialize, Deserialize)]` to make them json-(de)serializable by serde.  A function is
-provided in `custom_ser.rs` which can be used along with serde's `#[serde(skip_serializing_if="$PATH")]
+provided in `custom_ser.rs` which can be used along with serde's `#[serde(skip_serializing_if="$PATH")]`
 annotation to skip serializing values which are `std::option::Option::None`.  Additionally, custom
 `XAmzDate` and `XAmzTarget` hyper HTTP headers have been created in `custom_headers.rs` using
 hyper macros.
